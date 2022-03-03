@@ -3,9 +3,10 @@
   max-width: 880px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
+  flex-wrap: wrap; 
+  justify-content: flex-start;
+  /*flex-flow: row wrap;*/
+  }
 
 /* display: grid;
 grid-template-columns: ;

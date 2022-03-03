@@ -23,6 +23,7 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 
 /* elements */
+@import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__element/elements__element.css);
 
 /* footer */

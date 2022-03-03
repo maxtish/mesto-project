@@ -1,4 +1,5 @@
 .profile__edit-button {
+  margin-left: 18px;
   /* сброс стилей кнопки */
   background: none;
   color: inherit;
@@ -15,4 +16,6 @@
   background-repeat: no-repeat;
   background-position: center;
   box-sizing: content-box;
+  align-self: flex-end;
+  
 }

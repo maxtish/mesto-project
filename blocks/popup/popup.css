@@ -1,0 +1,10 @@
+.popup {
+  position: fixed;
+  left: 425px;
+  top: 195px;
+  width: 430px;
+  height: 330px;
+  background: #fff;
+  color: #000000;
+
+}

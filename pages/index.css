@@ -22,6 +22,11 @@
 @import url(../blocks/profile/__hobby/profile__hobby.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 
+/* popup */
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__opened/popup__opened.css);
+@import url(../blocks/popup/__title/popup__title.css);
+
 /* elements */
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__element/elements__element.css);

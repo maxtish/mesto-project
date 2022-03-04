@@ -28,13 +28,15 @@
             <button class="profile__add-button" type="button" aria-label="Добавить"></button>
         </section>
 
-        <section class="popup popup_opened">
+        <section class="popup "> <!-- popup_opened-->
             <div class="popup__close"></div>
             <form class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="popup__input-container">
                     <input type="text" class="popup__item" value="Жак-Ив Кусто">
-                    <input type="text" class="popup__item" placeholder="Исследователь океана">
+                    <div class="popup__line"></div>
+                    <input type="text" class="popup__item" value="Исследователь океана">
+                    <div class="popup__line"></div>
                 </fieldset>
                 <fieldset class="popup__handlers">
                     <input class="popup__button" type="button" value="Сохранить">

@@ -5,4 +5,9 @@
     width: 32px;
     height: 32px;
     background-image: url(../../../images/close.svg);
+    cursor: pointer;
+}
+
+.popup__close:hover {
+    opacity: 0.6;
 }

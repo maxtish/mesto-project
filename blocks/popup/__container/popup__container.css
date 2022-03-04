@@ -1,5 +1,8 @@
 .popup__container {
-z-index: 2;
+  position: fixed;
+  top: calc((100vh - 330px) / 2);
+  left: calc((100vw - 430px) / 2);
+
   width: 430px;
   height: 330px;
   background: #fff;

@@ -1,0 +1,8 @@
+.popup__close {
+    position: fixed;
+    top: calc((100vh - 330px) / 2 - 32px);
+    left: calc((100vw - 430px) / 2 + 430px);
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../images/close.svg);
+}

@@ -3,18 +3,12 @@
   max-width: 880px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-content: flex-start;
-  /*flex-flow: row wrap;*/
-  }
-
-/* display: grid;
-grid-template-columns: ;
-grid-template-rows: ;
-grid-template-areas: 
-avatar
-avatar
-;
 }
 
- grid-area: name;*/
+@media screen and (max-width: 500px) {
+  .profile {
+    justify-content: center;
+  }
+}

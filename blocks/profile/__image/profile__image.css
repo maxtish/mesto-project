@@ -1,4 +1,10 @@
 .profile__image {
-    width: 120px;
-    
+  width: 120px;
+  align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+  .profile__image {
+    margin-bottom: 22px;
+  }
 }

@@ -1,5 +1,5 @@
 .elements__like {
-    /* сброс стилей кнопки */
+  /* сброс стилей кнопки */
   background: none;
   color: inherit;
   border: none;
@@ -12,7 +12,7 @@
   height: 19px;
   background-image: url(../../../images/like.svg);
   background-repeat: no-repeat;
-    align-self: center;  
+  align-self: center;
 }
 
 .elements__like:hover {

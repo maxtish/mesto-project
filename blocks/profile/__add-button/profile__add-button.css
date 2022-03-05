@@ -15,14 +15,19 @@
   background-image: url(../../../images/add.svg);
   background-repeat: no-repeat;
   background-position: center;
-  
   box-sizing: content-box;
   align-self: center;
   margin-left: auto;
-  
 }
-
 
 .profile__add-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 500px) {
+  .profile__add-button {
+    margin: 36px 0 0;
+    width: 282px;
+    justify-content: center;
+  }
 }

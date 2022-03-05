@@ -4,3 +4,11 @@
   left: calc(100% - 880px) / 2;
   width: 142px;
 }
+
+@media screen and (max-width: 500px) {
+  .logo {
+    top: 28px;
+    left: 27px;
+    width: 103.24px;
+  }
+}

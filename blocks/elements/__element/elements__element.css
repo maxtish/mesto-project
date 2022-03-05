@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 282px;
-  height: 361px;
+  /*height: 361px;*/
   border-radius: 10px;
   background: #ffffff;
 }

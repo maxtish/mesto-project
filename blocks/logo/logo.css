@@ -1,11 +1,11 @@
 .logo {
-  padding: 45px 0 41px;
+  padding: 45px 0 37px;
   width: 142px;
 }
 
 @media screen and (max-width: 907px) {
   .logo {
-    padding: 28px 0 31.7px 27px;
+    padding: 28px 0 28px 30px;
     width: 103.24px;
   }
 }

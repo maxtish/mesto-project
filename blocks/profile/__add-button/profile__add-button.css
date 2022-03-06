@@ -7,7 +7,6 @@
   font: inherit;
   cursor: pointer;
   outline: inherit;
-
   width: 150px;
   height: 50px;
   border: 2px solid #fff;
@@ -15,9 +14,10 @@
   background-image: url(../../../images/add.svg);
   background-repeat: no-repeat;
   background-position: center;
-  box-sizing: content-box;
+  box-sizing: border-box;
   align-self: center;
   margin-left: auto;
+  transition: 0.5s;
 }
 
 .profile__add-button:hover {
@@ -26,7 +26,7 @@
 
 @media screen and (max-width: 500px) {
   .profile__add-button {
-    margin: 36px 0 0;
+    margin: 34px 0 0;
     width: 282px;
     justify-content: center;
   }

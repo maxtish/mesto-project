@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel='stylesheet' href='./pages/index.css'>
+    <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="page">
@@ -18,66 +18,72 @@
     <main class="content">
 
         <section class="profile">
-            <div class="profile__image"><img class="profile__avatar" src="./images/cousteau.jpg" alt=""></div>
+            <div class="profile__image"><img class="profile__avatar" src="./images/cousteau.jpg" alt="Аватарка"></div>
             <div class="profile__info">
+
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
+
                 <p class="profile__hobby">Исследователь океана</p>
             </div>
             <button class="profile__add-button" type="button" aria-label="Добавить"></button>
         </section>
 
-        <section class="popup popup_opened">
+        <div class="popup popup_opened">
             <!--popup_opened-->
-            <form class="popup__container">
-                <div class="popup__close"></div>
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <fieldset class="popup__input-container">
-                    <input type="text" class="popup__item" value="Жак-Ив Кусто">
-                    <input type="text" class="popup__item" value="Исследователь океана">
-                </fieldset>
-                <fieldset class="popup__handlers">
-                    <input class="popup__button" type="button" value="Сохранить">
-                </fieldset>
-            </form>
+            <div class="popup__container">
+                <button class="popup__close" type="button" aria-label="Закрыть"></button>
+                <form class="popup__form" name="popup-form">
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <fieldset class="popup__input-container">
+                        <input type="text" class="popup__item" value="Жак-Ив Кусто" name="name" placeholder="Имя"
+                            required>
+                        <input type="text" class="popup__item" value="Исследователь океана" name="hobby"
+                            placeholder="Хобби" required>
+                    </fieldset>
+                    <fieldset class="popup__handlers">
+                        <input class="popup__button" type="submit" value="Сохранить">
+                    </fieldset>
+                </form>
+            </div>
 
-        </section>
+        </div>
 
 
         <section class="elements">
             <ul class="elements__list">
                 <li class="elements__element">
-                    <img class="elements__image" src="./images/karachayevsk.png" alt="">
+                    <img class="elements__image" src="./images/karachayevsk.png" alt="Карачаевск">
                     <h2 class="elements__title">Карачаевск</h2>
                     <button class="elements__like" type="button" aria-label="Нравится"></button>
                 </li>
 
                 <li class="elements__element">
-                    <img class="elements__image" src="./images/elbrus.png" alt="">
+                    <img class="elements__image" src="./images/elbrus.png" alt="Эльбрус">
                     <h2 class="elements__title">Гора Эльбрус</h2>
                     <button class="elements__like" type="button" aria-label="Нравится"></button>
                 </li>
 
                 <li class="elements__element">
-                    <img class="elements__image" src="./images/dombay.png" alt="">
+                    <img class="elements__image" src="./images/dombay.png" alt="Домбай">
                     <h2 class="elements__title">Домбай</h2>
                     <button class="elements__like " type="button" aria-label="Нравится"></button>
                 </li>
 
                 <li class="elements__element">
-                    <img class="elements__image" src="./images/elbrus.png" alt="">
+                    <img class="elements__image" src="./images/elbrus.png" alt="Эльбрус">
                     <h2 class="elements__title">Гора Эльбрус</h2>
                     <button class="elements__like" type="button" aria-label="Нравится"></button>
                 </li>
 
                 <li class="elements__element">
-                    <img class="elements__image" src="./images/dombay.png" alt="">
+                    <img class="elements__image" src="./images/dombay.png" alt="Домбай">
                     <h2 class="elements__title">Домбай</h2>
                     <button class="elements__like" type="button" aria-label="Нравится"></button>
                 </li>
 
                 <li class="elements__element">
-                    <img class="elements__image" src="./images/karachayevsk.png" alt="">
+                    <img class="elements__image" src="./images/karachayevsk.png" alt="Карачаево-Черкесия">
                     <h2 class="elements__title">Карачаево-Черкесия</h2>
                     <button class="elements__like" type="button" aria-label="Нравится"></button>
                 </li>

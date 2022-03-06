@@ -1,5 +1,5 @@
 .profile__hobby {
-  margin: 16px 0 0;
+  margin: 8px 0 0;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -8,11 +8,7 @@
 
 @media screen and (max-width: 500px) {
   .profile__hobby {
-    font-style: normal;
-    font-weight: normal;
     font-size: 14px;
     line-height: 17px;
-
-    margin: 14px 0 0;
   }
 }

@@ -5,8 +5,13 @@
   align-self: flex-end;
   width: 32px;
   height: 32px;
+  background: none; /* сброс стилей кнопки */
+  color: inherit;
+  border: none;
+  padding: 0;
   background-image: url(../../../images/close.svg);
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .popup__close:hover {

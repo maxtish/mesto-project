@@ -1,5 +1,5 @@
 .popup__button {
-  width: 84.4%;
+  width: 83.25%;
   height: 50px;
   font-size: 14px;
   border: 0;
@@ -13,6 +13,7 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
+  transition: 0.5s;
 }
 
 .popup__button:hover {
@@ -23,6 +24,8 @@
   .popup__button {
     font-size: 14px;
     line-height: 17px;
-    margin-bottom: 25px;
+    margin: 45px 0 27px;
+    width: 84.4%;
+    height: 46px;
   }
 }

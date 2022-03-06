@@ -3,7 +3,7 @@
   height: 50px;
   font-size: 14px;
   border: 0;
-  margin: 49px 0 0;
+  margin: 49px 0 37px;
   padding: 0;
   cursor: pointer;
   color: #fff;
@@ -23,5 +23,6 @@
   .popup__button {
     font-size: 14px;
     line-height: 17px;
+    margin-bottom: 25px;
   }
 }

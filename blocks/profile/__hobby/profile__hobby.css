@@ -1,5 +1,9 @@
 .profile__hobby {
   margin: 8px 0 0;
+  text-overflow: ellipsis;
+  max-width: 336px;
+  overflow: hidden;
+  white-space: nowrap;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;

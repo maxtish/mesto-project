@@ -1,7 +1,8 @@
 .popup__close {
-  position: fixed;
-  top: calc((100vh - 330px) / 2 - 32px - 8px);
-  left: calc((100vw - 430px) / 2 + 430px + 8px);
+  position: absolute;
+  top: calc(-32px - 8px);
+  right: calc(-32px - 8px);
+  align-self: flex-end;
   width: 32px;
   height: 32px;
   background-image: url(../../../images/close.svg);
@@ -16,8 +17,8 @@
   .popup__close {
     width: 20px;
     height: 20px;
-    top: calc((100vh - 322px) / 2 - 20px - 16px);
-    left: calc((100vw - 282px) / 2 - 20px + 282px);
+    top: calc(-20px - 16px);
+    right: 0;
     background-size: cover;
   }
 }

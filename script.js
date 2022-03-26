@@ -27,8 +27,10 @@ console.log(nameInput.value);
     // Получите значение полей jobInput и nameInput из свойства value
     // Выберите элементы, куда должны быть вставлены значения полей
     const profileName = document.querySelector('#profile__name');
+    const profileHobby = document.querySelector('#profile__hobby')
     // Вставьте новые значения с помощью textContent
     profileName.textContent = nameInput.value;
+    profileHobby.textContent = jobInput.value;
     popupClose();
 }
 // Прикрепляем обработчик к форме:

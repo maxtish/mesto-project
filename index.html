@@ -21,8 +21,8 @@
             <div class="profile__image"><img class="profile__avatar" src="./images/cousteau.jpg" alt="Аватарка"></div>
             <div class="profile__info">
 
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
+                <h1 class="profile__name" id="profile__name">Жак-Ив Кусто</h1>
+                <button class="profile__edit-button" id="profile__edit-button" type="button" aria-label="Редактировать"></button>
 
                 <p class="profile__hobby">Исследователь океана</p>
             </div>
@@ -72,13 +72,13 @@
         <div class="popup" id="popup">
             <!--popup_opened-->
             <div class="popup__container">
-                <button class="popup__close" type="button" aria-label="Закрыть"></button>
-                <form class="popup__form" name="edit-profile">
+                <button class="popup__close" id="popup__close" type="button" aria-label="Закрыть"></button>
+                <form class="popup__form" id="popup-form" name="edit-profile">
                     <h2 class="popup__title">Редактировать профиль</h2>
                     <fieldset class="popup__input-container">
-                        <input type="text" class="popup__item" value="Жак-Ив Кусто" name="name" placeholder="Имя"
+                        <input type="text" class="popup__item" id="name-input" value="Жак-Ив Кусто" name="name" placeholder="Имя"
                             required>
-                        <input type="text" class="popup__item" value="Исследователь океана" name="hobby"
+                        <input type="text" class="popup__item" id='job-input' value="Исследователь океана" name="hobby"
                             placeholder="Хобби" required>
                     </fieldset>
                     <fieldset class="popup__handlers">

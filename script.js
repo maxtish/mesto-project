@@ -81,7 +81,7 @@ const elementList = document.querySelector('#elements__list');
     <li class="elements__element">
         <img class="elements__image" id="elements__image" src="${item.link}" alt="Карачаевск">
         <h2 class="elements__title" id="elements__title">${item.name}</h2>
-        <button class="elements__like" type="button" aria-label="Нравится"></button>
+        <button class="elements__like" id="elements__like" type="button" aria-label="Нравится"></button>
     </li>
     `);
   })
@@ -115,7 +115,7 @@ const jobInputAdd =  popupNewCards.querySelector('#job-input');// Восполь
     <li class="elements__element">
         <img class="elements__image" id="elements__image" src="${jobInputAdd.value}" alt="Карачаевск">
         <h2 class="elements__title" id="elements__title">${nameInputAdd.value}</h2>
-        <button class="elements__like" type="button" aria-label="Нравится"></button>
+        <button class="elements__like" id="elements__like" type="button" aria-label="Нравится"></button>
     </li>
     `);    
     popupCloseNewCards();
@@ -123,3 +123,13 @@ const jobInputAdd =  popupNewCards.querySelector('#job-input');// Восполь
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementAdd.addEventListener('submit', formaAddCard);
+
+// Like
+
+const buttonElementsLike = document.querySelector('#elements__like');
+
+function Like(){
+  buttonElementsLike.classList.add('elements__like_active');
+}
+
+buttonElementsLike.addEventListener("click", Like);

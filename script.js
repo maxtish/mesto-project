@@ -1,9 +1,9 @@
-const popup = document.querySelector("#popup");
+const popup = document.querySelector("#popup-js");
 const popupNewCards = document.querySelector("#popup-new-cards");
-const profileEditButton = document.querySelector("#profile__edit-button");
-const profileAddButton = document.querySelector("#profile__add-button");
-const closePopupButton = popup.querySelector("#popup__close");
-const closePopupButtonAdd = popupNewCards.querySelector("#popup__close");
+const profileEditButton = document.querySelector("#profile-edit-button");
+const profileAddButton = document.querySelector("#profile-add-button");
+const closePopupButton = popup.querySelector("#popup-close");
+const closePopupButtonAdd = popupNewCards.querySelector("#popup-close-cards");
 
 // Открытие попап редактор профиля
 function openPopup() {
@@ -30,13 +30,13 @@ function closePopupNewCards() {
 closePopupButtonAdd.addEventListener("click", closePopupNewCards);
 
 // Обработчик «отправки» формы редактирования профиля
-const formElement = popup.querySelector("#popup-form"); // Находим форму в DOM // Воспользуйтесь методом querySelector()
-const nameInput = popup.querySelector("#name-input"); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector()
-const jobInput = popup.querySelector("#job-input");
-const profileName = document.querySelector("#profile__name");
-const profileHobby = document.querySelector("#profile__hobby");
+const formElement = popup.querySelector("#popup-form-profile"); // Находим форму в DOM // Воспользуйтесь методом querySelector()
+const nameInput = popup.querySelector("#name-input-profile"); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector()
+const jobInput = popup.querySelector("#job-input-profile");
+const profileName = document.querySelector("#profile-name");
+const profileHobby = document.querySelector("#profile-hobby");
 
-// подгружаем информацию о пользователе всоответствующие поля
+// подгружаем информацию о пользователе в соответствующие поля
 nameInput.value = profileName.textContent;
 jobInput.value = profileHobby.textContent;
 // Обработчик «отправки» формы, хотя пока
@@ -85,9 +85,9 @@ const initialCards = [
 ];
 
 // like
-function like() {
+function activatesLike() {
   document
-    .querySelector("#elements__like")
+    .querySelector("#elements-like")
     .addEventListener("click", function (evt) {
       evt.target.classList.toggle("elements__like_active");
     });
@@ -97,7 +97,7 @@ function like() {
 function openCloseImg() {
   // Открытие попап Картинка
   const popupImg = document.querySelector("#popup-img");
-  const elementsImage = document.querySelector("#elements__image");
+  const elementsImage = document.querySelector("#elements-image");
   function openPopupImg() {
     popupImg.classList.add("popup_opened");
   }
@@ -106,7 +106,7 @@ function openCloseImg() {
     //console.log(evt)
 
     const imgTitle = document.querySelector("#popup-img-title");
-    const imgLink = document.querySelector("#popup__image-link");
+    const imgLink = document.querySelector("#popup-image-link");
 
     // подпись к картинке
     imgTitle.textContent = evt.path[1].childNodes[5].innerText;
@@ -126,15 +126,15 @@ function openCloseImg() {
 // Функция добавления карточки
 function addCard(a, b) {
   const userTemplate = document.querySelector("#user").content;
-  const usersOnline = document.querySelector("#elements__list");
+  const usersOnline = document.querySelector("#elements-list");
   // клонируем содержимое тега template
   const userElement = userTemplate
     .querySelector(".elements__element")
     .cloneNode(true);
   // наполняем содержимым
-  userElement.querySelector("#elements__image").src = b;
-  userElement.querySelector("#elements__image").alt = a;
-  userElement.querySelector("#elements__title").textContent = a;
+  userElement.querySelector("#elements-image").src = b;
+  userElement.querySelector("#elements-image").alt = a;
+  userElement.querySelector("#elements-title").textContent = a;
 
   // отображаем на странице
   usersOnline.prepend(userElement);
@@ -142,11 +142,11 @@ function addCard(a, b) {
   //Картинка
   openCloseImg();
   // like
-  like();
+  activatesLike();
 
   // добавим обработчик удаления
   // выберем кнопку удаления
-  const deleteButton = document.querySelector("#button__delete");
+  const deleteButton = document.querySelector("#button-delete");
   const element = document.querySelector(".elements__element");
 
   deleteButton.addEventListener("click", function () {
@@ -164,8 +164,8 @@ initialCards.forEach(function (item) {
 
 // Обработчик «отправки» формы добавления карточки
 const formElementAdd = document.querySelector("#popup-new-cards"); // Находим форму в DOM // Воспользуйтесь методом querySelector()
-const a = popupNewCards.querySelector("#name-input"); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector)
-const b = popupNewCards.querySelector("#job-input"); // Воспользуйтесь инструментом .querySelector()
+const a = popupNewCards.querySelector("#name-input-cards"); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector)
+const b = popupNewCards.querySelector("#link-input-cards"); // Воспользуйтесь инструментом .querySelector()
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 //sendingFormCard

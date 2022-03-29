@@ -12,6 +12,8 @@ function popupOpen(){
 }
 profileEditButton.addEventListener("click", popupOpen);
 
+
+
 // Закрытие попап редактор профиля
 function popupClose(){
   popup.classList.remove('popup_opened');
@@ -79,13 +81,46 @@ const initialCards = [
       name: 'Байкал',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-  ];  
-  
+  ];
 
+  // like
+function like() {
+  document.querySelector("#elements__like").addEventListener("click", function (evt) {
+    evt.target.classList.toggle("elements__like_active")
+    });
+  }
+
+// Картинка
+function OpenCloseImg(){
+  // Открытие попап Картинка
+  const popupImg = document.querySelector("#popup-img")
+  const elementsImage = document.querySelector("#elements__image")
+  function popupOpenImg(){
+  popupImg.classList.add('popup_opened');  
+  }
+  elementsImage.addEventListener("click", function (evt) {
+    popupOpenImg()
+    //console.log(evt)
+    
+  const imgTitle = document.querySelector("#popup-img-title")
+   const imgLink = document.querySelector("#popup__image-link")
+  
+   // подпись к картинке
+   imgTitle.textContent = evt.path[1].childNodes[5].innerText; 
+   //адрес к картинке
+   imgLink.src = evt.target.currentSrc;
+  });
+  
+  // Закрытие попап Картинка
+  const buttonCloseImg = document.querySelector("#popup__close-img")
+  function popupCloseImg(){
+    popupImg.classList.remove('popup_opened');
+  }
+  buttonCloseImg.addEventListener("click", popupCloseImg);
+  }
 
 // Функция добавления карточки
-  function cardAdd(a, b){
-    console.log(a)
+  function cardAdd(a, b){    
 const userTemplate = document.querySelector('#user').content;
 const usersOnline = document.querySelector('#elements__list');
 // клонируем содержимое тега template
@@ -97,10 +132,10 @@ userElement.querySelector('#elements__title').textContent = a;
 // отображаем на странице
 usersOnline.prepend(userElement);
 
+//Картинка 
+OpenCloseImg()
 // like
-document.querySelector("#elements__like").addEventListener("click", function (evt) {
-evt.target.classList.toggle("elements__like_active")
-});
+like();
 
 // добавим обработчик удаления
 // выберем кнопку удаления
@@ -134,11 +169,17 @@ const b =  popupNewCards.querySelector('#job-input');// Воспользуйте
 cardAdd(a.value, b.value)
 
   popupCloseNewCards();
-return usersOnline;
+
 
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementAdd.addEventListener('submit', formaAddCard);
+
+
+
+
+
+
 
 

@@ -106,6 +106,7 @@ function OpenCloseImg() {
     imgTitle.textContent = evt.path[1].childNodes[5].innerText;
     //адрес к картинке
     imgLink.src = evt.target.currentSrc;
+    imgLink.alt = evt.path[1].childNodes[5].innerText;
   });
 
   // Закрытие попап Картинка
@@ -126,6 +127,7 @@ function cardAdd(a, b) {
     .cloneNode(true);
   // наполняем содержимым
   userElement.querySelector("#elements__image").src = b;
+  userElement.querySelector("#elements__image").alt = a;
   userElement.querySelector("#elements__title").textContent = a;
 
   // отображаем на странице

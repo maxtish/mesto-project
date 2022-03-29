@@ -1,3 +1,4 @@
+
 const popup = document.querySelector('#popup'); 
 const popupNewCards = document.querySelector('#popup-new-cards'); 
 const profileEditButton = document.querySelector('#profile__edit-button');
@@ -5,27 +6,31 @@ const profileAddButton = document.querySelector('#profile__add-button');
 const popupCloseButton = popup.querySelector('#popup__close');
 const popupCloseButtonAdd = popupNewCards.querySelector('#popup__close');
 
+// Открытие попап редактор профиля
 function popupOpen(){
     popup.classList.add('popup_opened');
 }
+profileEditButton.addEventListener("click", popupOpen);
+
+// Закрытие попап редактор профиля
+function popupClose(){
+  popup.classList.remove('popup_opened');
+}
+popupCloseButton.addEventListener("click", popupClose);
+
+// Открытие попап добавление карточки
 function popupOpenNewCards(){
   popupNewCards.classList.add('popup_opened');
 }
+profileAddButton.addEventListener("click", popupOpenNewCards);
 
-function popupClose(){
-    popup.classList.remove('popup_opened');
-}
-
+//Закрытие попап добавление карточки
 function popupCloseNewCards(){
   popupNewCards.classList.remove('popup_opened');
 }
-
-profileEditButton.addEventListener("click", popupOpen);
-profileAddButton.addEventListener("click", popupOpenNewCards);
-
-popupCloseButton.addEventListener("click", popupClose);
 popupCloseButtonAdd.addEventListener("click", popupCloseNewCards);
 
+// Обработчик «отправки» формы редактирования профиля
 const formElement = popup.querySelector('#popup-form'); // Находим форму в DOM // Воспользуйтесь методом querySelector()
 const nameInput = popup.querySelector('#name-input'); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector()
 const jobInput =  popup.querySelector('#job-input');// Воспользуйтесь инструментом .querySelector()
@@ -48,7 +53,7 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 
 
-//При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
+//Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
 const initialCards = [
     {
       name: 'Архыз',
@@ -75,61 +80,65 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];  
-const elementList = document.querySelector('#elements__list');
-  initialCards.forEach(function (item){
-  elementList.insertAdjacentHTML('beforeend', `
-    <li class="elements__element">
-        <img class="elements__image" id="elements__image" src="${item.link}" alt="Карачаевск">
-        <h2 class="elements__title" id="elements__title">${item.name}</h2>
-        <button class="elements__like" id="elements__like" type="button" aria-label="Нравится"></button>
-    </li>
-    `);
-  })
   
+
+
 // Функция добавления карточки
-  /*function addCard() {
-    let cardImg = document.querySelector('#elements__image');
-    let cardTitle = document.querySelector('#elements__title');
-    elementList.insertAdjacentHTML('beforeend', `
-    <li class="elements__element">
-        <img class="elements__image" id="elements__image" src="${initialCards[0].link}" alt="Карачаевск">
-        <h2 class="elements__title" id="elements__title">${initialCards[0].name}</h2>
-        <button class="elements__like" type="button" aria-label="Нравится"></button>
-    </li>
-    `);    
-  }
-  */
-const formElementAdd = popupNewCards.querySelector('#popup-form'); // Находим форму в DOM // Воспользуйтесь методом querySelector()
-const nameInputAdd = popupNewCards.querySelector('#name-input'); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector()
-const jobInputAdd =  popupNewCards.querySelector('#job-input');// Воспользуйтесь инструментом .querySelector()
+  function cardAdd(a, b){
+    console.log(a)
+const userTemplate = document.querySelector('#user').content;
+const usersOnline = document.querySelector('#elements__list');
+// клонируем содержимое тега template
+const userElement = userTemplate.querySelector('.elements__element').cloneNode(true);
+// наполняем содержимым
+userElement.querySelector('#elements__image').src = b;
+userElement.querySelector('#elements__title').textContent = a;
+
+// отображаем на странице
+usersOnline.prepend(userElement);
+
+// like
+document.querySelector("#elements__like").addEventListener("click", function (evt) {
+evt.target.classList.toggle("elements__like_active")
+});
+
+// добавим обработчик удаления
+// выберем кнопку удаления
+const deleteButton = document.querySelector('#elements__image');
+const element = document.querySelector(".elements__element");
+
+deleteButton.addEventListener('click', function () {
+  const listItem = deleteButton.closest('.elements__element');
+  listItem.remove();
+});
+}
+
+// Добаляем все карточки из массива
+initialCards.forEach(function (item){
+ const a = item.name;
+ const b = item.link;
+ 
+cardAdd(a, b)
+
+})
+
+// Обработчик «отправки» формы добавления карточки
+const formElementAdd = document.querySelector('#popup-new-cards'); // Находим форму в DOM // Воспользуйтесь методом querySelector()
+const a = popupNewCards.querySelector('#name-input'); // Находим поля формы в DOM // Воспользуйтесь инструментом .querySelector)
+const b =  popupNewCards.querySelector('#job-input');// Воспользуйтесь инструментом .querySelector()
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
+
  function formaAddCard (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки. // О том, как это делать, расскажем позже.
-    // Получите значение полей jobInput и nameInput из свойства value
-    // Выберите элементы, куда должны быть вставлены значения полей
-    
-    // Вставьте новые значения с помощью textContent
-     
-    elementList.insertAdjacentHTML('beforeend', `
-    <li class="elements__element">
-        <img class="elements__image" id="elements__image" src="${jobInputAdd.value}" alt="Карачаевск">
-        <h2 class="elements__title" id="elements__title">${nameInputAdd.value}</h2>
-        <button class="elements__like" id="elements__like" type="button" aria-label="Нравится"></button>
-    </li>
-    `);    
-    popupCloseNewCards();
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки. 
+cardAdd(a.value, b.value)
+
+  popupCloseNewCards();
+return usersOnline;
+
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementAdd.addEventListener('submit', formaAddCard);
 
-// Like
 
-const buttonElementsLike = document.querySelector('#elements__like');
-
-function Like(){
-  buttonElementsLike.classList.add('elements__like_active');
-}
-
-buttonElementsLike.addEventListener("click", Like);

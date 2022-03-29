@@ -104,7 +104,7 @@ evt.target.classList.toggle("elements__like_active")
 
 // добавим обработчик удаления
 // выберем кнопку удаления
-const deleteButton = document.querySelector('#elements__image');
+const deleteButton = document.querySelector('#button__delete');
 const element = document.querySelector(".elements__element");
 
 deleteButton.addEventListener('click', function () {

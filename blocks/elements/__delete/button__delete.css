@@ -1,0 +1,18 @@
+.button__delete {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 18px;
+  height: 19px;
+  background: none; /* сброс стилей кнопки */
+  color: inherit;
+  border: none;
+  padding: 0;
+  background-image: url(../../../images/del-button.svg);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.button__delete:hover {
+  opacity: 0.6;
+}

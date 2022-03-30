@@ -10,7 +10,7 @@
   line-height: 22px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
   .profile__hobby {
     font-size: 14px;
     line-height: 17px;

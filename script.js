@@ -10,6 +10,7 @@ const buttonOpenNewCard = document.querySelector("#profile-add-button"); // Кн
 // Кнопки ЗАКРЫТЬ
 const buttonCloseProfileEdit = popupEdit.querySelector("#popup-close-edit"); // Кнопка закрыть - "Редактировать профиль"
 const buttonCloseNewCard = popupNewCard.querySelector("#popup-close-cards"); // Кнопка - закрыть "Новое место"
+const buttonCloseImage = popupImage.querySelector("#popup-close-img"); // Кнопка - закрыть "Картинка"
 
 // Форма "Редактировать профиль"
 const formElement = popupEdit.querySelector("#popup-form-profile"); // Форма редактирования профиля
@@ -25,6 +26,7 @@ const linkInput = popupNewCard.querySelector("#link-input-cards"); // Поле "
 
 const cardContainer = document.querySelector("#card-container").content; // template карточки
 const elementsList = document.querySelector("#elements-list"); // Место куда необходимо вставлять карточки
+
 
 // Функция подгрузки информации о пользователе в соответствующие поля
 function loadInfoPopupEdit() {
@@ -62,6 +64,11 @@ buttonCloseProfileEdit.addEventListener("click", function () {
 //слушатель кнопка закрыть - "Новое место"
 buttonCloseNewCard.addEventListener("click", function () {
   closePopup(popupNewCard);
+});
+
+//кнопка закрыть - "Картинка"
+buttonCloseImage.addEventListener("click", function () {
+  closePopup(popupImage);
 });
 
 //ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"
@@ -147,7 +154,9 @@ function createCard(title, link) {
 
   templateCardContainer
     .querySelector("#elements-image")
-    .addEventListener("click", openImg); //Слушатель для открытия Картинка
+    .addEventListener("click", () => {
+      openImg(title, link);
+}); //Слушатель для открытия Картинка
 
   return templateCardContainer;
 }
@@ -164,21 +173,12 @@ initialCards.forEach(function (item) {
 });
 
 // Картинка открытие
-function openImg() {
-  const buttonOpenImage = elementsList.querySelector("#elements-image"); // Кнопка - открыть "Картинка"
-  const buttonCloseImage = popupImage.querySelector("#popup-close-img"); // Кнопка - закрыть "Картинка"
-  const elementsTitle =
-    elementsList.querySelector("#elements-title").textContent; // Подпись к картинке
-
-  openPopup(popupImage);
+function openImg(title, link) { 
   const imgTitle = popupImage.querySelector("#popup-img-title");
   const imgLink = popupImage.querySelector("#popup-image-link");
-  imgTitle.textContent = elementsTitle;
-  imgLink.src = buttonOpenImage.src;
-  imgLink.alt = elementsTitle;
-
-  //кнопка закрыть - "Картинка"
-  buttonCloseImage.addEventListener("click", function () {
-    closePopup(popupImage);
-  });
+  imgTitle.textContent = title;
+  imgLink.src = link;
+  imgLink.alt = title;
+  openPopup(popupImage);
+  
 }

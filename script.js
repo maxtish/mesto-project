@@ -19,6 +19,7 @@ const profileName = document.querySelector("#profile-name"); // Имя проф�
 const profileHobby = document.querySelector("#profile-hobby"); // Работа профиля на странице
 
 // Форма "Новое место"
+const formCards = popupNewCard.querySelector("#popup-form-cards"); // Форма "Новое место"
 const titleInput = popupNewCard.querySelector("#name-input-cards"); // Поле "Название"
 const linkInput = popupNewCard.querySelector("#link-input-cards"); // Поле "Ссылка на картинку"
 
@@ -29,12 +30,6 @@ const elementsList = document.querySelector("#elements-list"); // Место к�
 function loadInfoPopupEdit() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileHobby.textContent;
-}
-
-// Функция очистки поля после кнопки "добавить"
-function clearInputFormCard() {
-  titleInput.value = "";
-  linkInput.value = "";
 }
 
 // функция открытия попапа
@@ -51,7 +46,7 @@ buttonOpenProfileEdit.addEventListener("click", function () {
 });
 //слушатель кнопка открыть - "Новое место"
 buttonOpenNewCard.addEventListener("click", function () {
-  clearInputFormCard();
+  formCards.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupNewCard);
 });
 
@@ -89,7 +84,7 @@ function sendingFormCard(evt) {
   closePopup(popupNewCard);
 }
 // Прикрепляем обработчик к форме: // он будет следить за событием “submit” - «отправка»
-popupNewCard.addEventListener("submit", sendingFormCard);
+formCards.addEventListener("submit", sendingFormCard);
 
 //Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
 const initialCards = [
@@ -120,20 +115,15 @@ const initialCards = [
 ];
 
 // Функция like
-function activatesLike() {
-  elementsList
-    .querySelector("#elements-like")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("elements__like_active");
-    });
+function activatesLike(evt) {
+  evt.target.classList.toggle("elements__like_active");
 }
 // Функция удаления карточки
 function deleteCard() {
-  const deleteButton = elementsList.querySelector("#button-delete"); // выберем кнопку удаления
-  deleteButton.addEventListener("click", function () {
-    const listItem = deleteButton.closest("#elements-element");
-    listItem.remove();
-  });
+  const listItem = elementsList
+    .querySelector("#button-delete")
+    .closest("#elements-element");
+  listItem.remove();
 }
 
 // Функция создание карточки
@@ -147,18 +137,24 @@ function createCard(title, link) {
   templateCardContainer.querySelector("#elements-image").alt = title;
   templateCardContainer.querySelector("#elements-title").textContent = title;
 
+  templateCardContainer
+    .querySelector("#button-delete")
+    .addEventListener("click", deleteCard); // Слушатель кнопку удаления
+
+  templateCardContainer
+    .querySelector("#elements-like")
+    .addEventListener("click", activatesLike); //Слушатель Like
+
+  templateCardContainer
+    .querySelector("#elements-image")
+    .addEventListener("click", openImg); //Слушатель для открытия Картинка
+
   return templateCardContainer;
 }
+
 // Функция отрисовки карточки
 function renderCard(title, link) {
-  createCard(title, link);
-
-  // Отображаем на странице
   elementsList.prepend(createCard(title, link));
-
-  deleteCard(); // Функция удаления карточки
-  activatesLike(); // Функция Like
-  openImg(); // Картинка открытие по клику
 }
 // Добавляем все карточки из массива
 initialCards.forEach(function (item) {
@@ -173,17 +169,15 @@ function openImg() {
   const buttonCloseImage = popupImage.querySelector("#popup-close-img"); // Кнопка - закрыть "Картинка"
   const elementsTitle =
     elementsList.querySelector("#elements-title").textContent; // Подпись к картинке
-  //СЛУШАТЕЛИ - "Картинка"
-  //слушатель кнопка открыть - "Картинка"
-  buttonOpenImage.addEventListener("click", function (evt) {
-    openPopup(popupImage);
-    const imgTitle = popupImage.querySelector("#popup-img-title");
-    const imgLink = popupImage.querySelector("#popup-image-link");
-    imgTitle.textContent = elementsTitle;
-    imgLink.src = buttonOpenImage.src;
-  });
 
-  //слушатель кнопка закрыть - "Картинка"
+  openPopup(popupImage);
+  const imgTitle = popupImage.querySelector("#popup-img-title");
+  const imgLink = popupImage.querySelector("#popup-image-link");
+  imgTitle.textContent = elementsTitle;
+  imgLink.src = buttonOpenImage.src;
+  imgLink.alt = elementsTitle;
+
+  //кнопка закрыть - "Картинка"
   buttonCloseImage.addEventListener("click", function () {
     closePopup(popupImage);
   });

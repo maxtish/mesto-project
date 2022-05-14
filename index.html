@@ -18,22 +18,43 @@
     <main class="content">
 
         <section class="profile">
-            <div class="profile__image"><img class="profile__avatar" src="./images/cousteau.jpg" alt="Аватарка"></div>
+            <div class="profile__image" id="profile-edit-ava"><img class="profile__avatar" src="./images/cousteau.jpg"
+                    alt="Аватарка"></div>
             <div class="profile__info">
 
                 <h1 class="profile__name" id="profile-name">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button" id="profile-edit-button" type="button" aria-label="Редактировать"></button>
+                <button class="profile__edit-button" id="profile-edit-button" type="button"
+                    aria-label="Редактировать"></button>
 
                 <p class="profile__hobby" id="profile-hobby">Исследователь океана</p>
             </div>
             <button class="profile__add-button" id="profile-add-button" type="button" aria-label="Добавить"></button>
-        </section>    
+        </section>
 
         <section class="elements">
             <ul class="elements__list" id="elements-list">
-                
+
             </ul>
         </section>
+
+        <!--Обновить аватар-->
+        <div class="popup" id="popup-ava">
+            <!--popup_opened-->
+            <div class="popup__container">
+                <button class="popup__close" id="popup-close-ava" type="button" aria-label="Закрыть"></button>
+                <form class="popup__form" id="popup-form-ava" name="ava">
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <fieldset class="popup__input-container">
+                        <input type="text" class="popup__item" id="name-input-ava" name="link"
+                            placeholder="https://somewebsite.com/someimage.jpg" required>
+                    </fieldset>
+                    <fieldset class="popup__handlers">
+                        <input class="popup__button" type="submit" value="Сохранить">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
 
         <!--Редактировать профиль-->
         <div class="popup" id="popup-edit">
@@ -45,8 +66,8 @@
                     <fieldset class="popup__input-container">
                         <input type="text" class="popup__item" id="name-input-profile" name="name" placeholder="Имя"
                             required>
-                        <input type="text" class="popup__item" id="job-input-profile" name="hobby"
-                            placeholder="Хобби" required>
+                        <input type="text" class="popup__item" id="job-input-profile" name="hobby" placeholder="Хобби"
+                            required>
                     </fieldset>
                     <fieldset class="popup__handlers">
                         <input class="popup__button" type="submit" value="Сохранить">
@@ -91,7 +112,7 @@
         <p class="footer__copy">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <template id="card-container"> 
+    <template id="card-container">
         <li class="elements__element" id="elements-element">
             <button class="button__delete" id="button-delete" type="button" aria-label="Удалить"></button>
             <img class="elements__image" id="elements-image" src="#" alt="#">
@@ -101,7 +122,7 @@
     </template>
 
 
-<script src="./script.js"></script>
+    <script src="./script.js"></script>
 
 </body>
 

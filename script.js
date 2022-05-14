@@ -2,15 +2,18 @@
 const popupEdit = document.querySelector('#popup-edit'); // Окно - "Редактировать профиль"
 const popupNewCard = document.querySelector('#popup-new-cards'); // Окно - "Новое место"
 const popupImage = document.querySelector('#popup-img'); // Окно - "Картинка"
+const popupAva = document.querySelector('#popup-ava'); // Окно - "Обновить аватар"
 
 // Кнопки ОТКРЫТЬ
 const buttonOpenProfileEdit = document.querySelector('#profile-edit-button'); // Кнопка - открыть "Редактировать профиль"
 const buttonOpenNewCard = document.querySelector('#profile-add-button'); // Кнопка - открыть "Новое место"
+const buttonOpenEditAva = document.querySelector('#profile-edit-ava'); // Кнопка - открыть "Обновить аватар"
 
 // Кнопки ЗАКРЫТЬ
 const buttonCloseProfileEdit = popupEdit.querySelector('#popup-close-edit'); // Кнопка закрыть - "Редактировать профиль"
 const buttonCloseNewCard = popupNewCard.querySelector('#popup-close-cards'); // Кнопка - закрыть "Новое место"
 const buttonCloseImage = popupImage.querySelector('#popup-close-img'); // Кнопка - закрыть "Картинка"
+const buttonCloseAva = popupImage.querySelector('#popup-close-ava'); // Кнопка - закрыть "Обновить аватар"
 
 // Форма "Редактировать профиль"
 const formElement = popupEdit.querySelector('#popup-form-profile'); // Форма редактирования профиля
@@ -45,10 +48,17 @@ buttonOpenProfileEdit.addEventListener('click', function () {
   //Открываем попап
   openPopup(popupEdit);
 });
+
 //слушатель кнопка открыть - "Новое место"
 buttonOpenNewCard.addEventListener('click', function () {
   formCards.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupNewCard);
+});
+
+//слушатель кнопка открыть - "Обновить аватар"
+buttonOpenEditAva.addEventListener('click', function () {
+  formCards.reset(); // Очистка полей после кнопки "добавить"
+  openPopup(popupAva);
 });
 
 // функция закрытия попапа esc
@@ -60,6 +70,7 @@ function closeEsc(popup) {
 closeEsc(popupEdit);
 closeEsc(popupNewCard);
 closeEsc(popupImage);
+closeEsc(popupAva);
 
 //Функция слушатель кнопка закрыть оверлей
 function closeOver() {
@@ -91,6 +102,11 @@ buttonCloseNewCard.addEventListener('click', function () {
 buttonCloseImage.addEventListener('click', function () {
   closePopup(popupImage);
 });
+
+//слушатель кнопка закрыть - "Обновить аватар"
+/*buttonCloseAva.addEventListener('click', function () {
+  closePopup(popupAva);
+});*/
 
 //ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"
 function sendingFormProfile(evt) {

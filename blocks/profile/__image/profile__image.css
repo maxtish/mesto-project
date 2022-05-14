@@ -1,10 +1,24 @@
 .profile__image {
+  position: relative;
   width: 120px;
   height: 120px;
   object-fit: cover;
   align-items: center;
+  cursor: pointer;
 }
 
+.profile__image:hover::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../images/Edit-ico.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
 @media screen and (max-width: 700px) {
   .profile__image {
     margin-bottom: 22px;

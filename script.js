@@ -13,7 +13,7 @@ const buttonOpenEditAva = document.querySelector('#profile-edit-ava'); // Кно
 const buttonCloseProfileEdit = popupEdit.querySelector('#popup-close-edit'); // Кнопка закрыть - "Редактировать профиль"
 const buttonCloseNewCard = popupNewCard.querySelector('#popup-close-cards'); // Кнопка - закрыть "Новое место"
 const buttonCloseImage = popupImage.querySelector('#popup-close-img'); // Кнопка - закрыть "Картинка"
-const buttonCloseAva = popupImage.querySelector('#popup-close-ava'); // Кнопка - закрыть "Обновить аватар"
+const buttonCloseAva = popupAva.querySelector('#popup-close-ava'); // Кнопка - закрыть "Обновить аватар"
 
 // Форма "Редактировать профиль"
 const formElement = popupEdit.querySelector('#popup-form-profile'); // Форма редактирования профиля
@@ -104,9 +104,9 @@ buttonCloseImage.addEventListener('click', function () {
 });
 
 //слушатель кнопка закрыть - "Обновить аватар"
-/*buttonCloseAva.addEventListener('click', function () {
+buttonCloseAva.addEventListener('click', function () {
   closePopup(popupAva);
-});*/
+});
 
 //ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"
 function sendingFormProfile(evt) {

@@ -6,8 +6,8 @@ const popupAva = document.querySelector('#popup-ava'); // Окно - "Обнов
 
 // Кнопки ОТКРЫТЬ
 const buttonOpenProfileEdit = document.querySelector('#profile-edit-button'); // Кнопка - открыть "Редактировать профиль"
-const buttonOpenNewCard = document.querySelector('#profile-add-button'); // Кнопка - открыть "Новое место"
-const buttonOpenEditAva = document.querySelector('#profile-edit-ava'); // Кнопка - открыть "Обновить аватар"
+const buttonOpenNewCard = document.querySelector('#popup-form-cards-button'); // Кнопка - открыть "Новое место"
+const buttonOpenEditAva = document.querySelector('#profile-edit-ava-button'); // Кнопка - открыть "Обновить аватар"
 
 // Кнопки ЗАКРЫТЬ
 const buttonCloseProfileEdit = popupEdit.querySelector('#popup-close-edit'); // Кнопка закрыть - "Редактировать профиль"
@@ -16,7 +16,7 @@ const buttonCloseImage = popupImage.querySelector('#popup-close-img'); // Кно
 const buttonCloseAva = popupAva.querySelector('#popup-close-ava'); // Кнопка - закрыть "Обновить аватар"
 
 // Форма "Редактировать профиль"
-const formElement = popupEdit.querySelector('#popup-form-profile'); // Форма редактирования профиля
+const formElement = popupEdit.querySelector('#profile-edit'); // Форма редактирования профиля
 const nameInput = popupEdit.querySelector('#name-input-profile'); // Поле редактирования Имя
 const jobInput = popupEdit.querySelector('#job-input-profile'); // Поле редактирования Работа
 const profileName = document.querySelector('#profile-name'); // Имя профиля на странице
@@ -42,23 +42,26 @@ function openPopup(popup) {
 }
 
 //слушатель кнопка открыть - "Редактировать профиль"
-buttonOpenProfileEdit.addEventListener('click', function () {
+buttonOpenProfileEdit.addEventListener('click', function (evt) {
   // подгружаем информацию о пользователе в соответствующие поля
   loadInfoPopupEdit();
   //Открываем попап
   openPopup(popupEdit);
+  enableValidationEvt(evt);
 });
 
 //слушатель кнопка открыть - "Новое место"
-buttonOpenNewCard.addEventListener('click', function () {
+buttonOpenNewCard.addEventListener('click', function (evt) {
   formCards.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupNewCard);
+  enableValidationEvt(evt);
 });
 
 //слушатель кнопка открыть - "Обновить аватар"
-buttonOpenEditAva.addEventListener('click', function () {
+buttonOpenEditAva.addEventListener('click', function (evt) {
   formCards.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupAva);
+  enableValidationEvt(evt);
 });
 
 // функция закрытия попапа esc
@@ -67,15 +70,15 @@ function closeEsc(popup) {
     closePopup(popup);
   });
 }
+/*
 closeEsc(popupEdit);
 closeEsc(popupNewCard);
 closeEsc(popupImage);
 closeEsc(popupAva);
-
+*/
 //Функция слушатель кнопка закрыть оверлей
 function closeOver() {
   document.addEventListener('click', function (evt) {
-    console.log(evt.target);
     if (evt.target.classList.contains('popup_opened')) {
       evt.target.classList.toggle('popup_opened');
     }
@@ -219,8 +222,88 @@ function openImg(title, link) {
   openPopup(popupImage);
 }
 
-// Валидация формы - Редактировать профиль
-// оба поля обязательные;
-//  поле «Имя» должно быть от 2 до 40 символов;
-// в поле «О себе» должно быть от 2 до 200 символов.
-// Используйте стандартные браузерные тексты ошибок.
+// Валидация формы - Любой по клику определяем evt.target.id обрезаем -button и получаем id формы которая появилась
+// Используем стандартные браузерные тексты ошибок.
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__item_type_error');
+  errorElement.classList.add('popup__item-error_active');
+  errorElement.textContent = errorMessage;
+};
+
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__item_type_error');
+  errorElement.classList.remove('popup__item-error_active');
+  errorElement.textContent = '';
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('button_inactive');
+  } else {
+    buttonElement.classList.remove('button_inactive');
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__item'));
+
+  const buttonElement = formElement.querySelector('.popup__submit');
+
+  // чтобы проверить состояние кнопки в самом начале
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement);
+      // чтобы проверять его при изменении любого из полей
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+const enableValidation = (popupElement) => {
+  /*const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
+    
+    setEventListeners(formElement);
+*/
+  popupElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+  });
+
+  setEventListeners(popupElement);
+  /*
+    const fieldsetList = Array.from(
+      formElement.querySelectorAll('.popup__set')
+    );
+    fieldsetList.forEach((fieldsetElement) => {
+      setEventListeners(fieldsetElement);
+    });
+*/
+};
+
+const enableValidationEvt = (evt) => {
+  const popupElementText = evt.target.id.slice(0, -7);
+  const popupElement = document.querySelector(`#${popupElementText}`);
+
+  enableValidation(popupElement);
+};

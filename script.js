@@ -47,6 +47,7 @@ buttonOpenProfileEdit.addEventListener('click', function (evt) {
   loadInfoPopupEdit();
   //Открываем попап
   openPopup(popupEdit);
+  closeEsc(popupEdit);
   enableValidationEvt(evt);
 });
 
@@ -54,6 +55,7 @@ buttonOpenProfileEdit.addEventListener('click', function (evt) {
 buttonOpenNewCard.addEventListener('click', function (evt) {
   formCards.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupNewCard);
+  closeEsc(popupNewCard);
   enableValidationEvt(evt);
 });
 
@@ -61,24 +63,22 @@ buttonOpenNewCard.addEventListener('click', function (evt) {
 buttonOpenEditAva.addEventListener('click', function (evt) {
   formCards.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupAva);
+  closeEsc(popupAva);
   enableValidationEvt(evt);
 });
 
 // функция закрытия попапа esc
 function closeEsc(popup) {
   document.addEventListener('keydown', function (evt) {
-    closePopup(popup);
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
   });
 }
-/*
-closeEsc(popupEdit);
-closeEsc(popupNewCard);
-closeEsc(popupImage);
-closeEsc(popupAva);
-*/
+
 //Функция слушатель кнопка закрыть оверлей
 function closeOver() {
-  document.addEventListener('click', function (evt) {
+  document.addEventListener('mousedown', function (evt) {
     if (evt.target.classList.contains('popup_opened')) {
       evt.target.classList.toggle('popup_opened');
     }
@@ -220,6 +220,7 @@ function openImg(title, link) {
   imgLink.src = link;
   imgLink.alt = title;
   openPopup(popupImage);
+  closeEsc(popupImage);
 }
 
 // Валидация формы - Любой по клику определяем evt.target.id обрезаем -button и получаем id формы которая появилась

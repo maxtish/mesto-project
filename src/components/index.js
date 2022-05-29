@@ -1,4 +1,4 @@
-//Окна
+// Окна
 export const popupEdit = document.querySelector('#popup-edit'); // Окно - "Редактировать профиль"
 export const popupNewCard = document.querySelector('#popup-new-cards'); // Окно - "Новое место"
 export const popupImage = document.querySelector('#popup-img'); // Окно - "Картинка"

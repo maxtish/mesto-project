@@ -29,7 +29,13 @@ export const formCards = popupNewCard.querySelector('#popup-form-cards'); // Ф�
 export const titleInput = popupNewCard.querySelector('#name-input-cards'); // Поле "Название"
 export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
 
-import { enableValidationEvt } from './validate.js';
+import { renderCard, initialCards } from './card.js';
+// Добавляем все карточки из массива
+initialCards.forEach(function (item) {
+  const title = item.name;
+  const link = item.link;
+  renderCard(title, link);
+});
 
 import {
   loadInfoPopupEdit,
@@ -39,21 +45,15 @@ import {
   closeOver,
 } from './modal.js';
 
-import { renderCard, initialCards } from './card.js';
-// Добавляем все карточки из массива
-initialCards.forEach(function (item) {
-  const title = item.name;
-  const link = item.link;
-  renderCard(title, link);
-});
+import { enableValidationEvt } from './validate.js';
 
 // закрыть оверлей
 closeOver();
+
 //слушатель кнопка открыть - "Редактировать профиль"
 buttonOpenProfileEdit.addEventListener('click', function (evt) {
   // подгружаем информацию о пользователе в соответствующие поля
   loadInfoPopupEdit();
-  //Открываем попап
   openPopup(popupEdit);
   closeEsc(popupEdit);
   enableValidationEvt(evt);
@@ -93,3 +93,25 @@ buttonCloseImage.addEventListener('click', function () {
 buttonCloseAva.addEventListener('click', function () {
   closePopup(popupAva);
 });
+
+////////////////////////////////////ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"/////////////////////////
+
+function sendingFormProfile(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки. // О том, как это делать, расскажем позже.
+  // Получите значение полей jobInput и nameInput из свойства value
+  // Выберите элементы, куда должны быть вставлены значения полей
+  // Вставьте новые значения с помощью textContent
+  profileName.textContent = nameInput.value;
+  profileHobby.textContent = jobInput.value;
+  closePopup(popupEdit);
+}
+formElement.addEventListener('submit', sendingFormProfile);
+
+/////////////////////////////////// ОБРАБОТЧИК ОТПРАВКИ "Новое место"////////////////////////////////
+function sendingFormCard(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки.
+  renderCard(titleInput.value, linkInput.value);
+  closePopup(popupNewCard);
+}
+// Прикрепляем обработчик к форме: // он будет следить за событием “submit” - «отправка»
+formCards.addEventListener('submit', sendingFormCard);

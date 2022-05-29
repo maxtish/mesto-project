@@ -1,0 +1,22 @@
+{
+  "name": "yandex.praktikum",
+  "version": "0.0.1",
+  "description": "Learning platform",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxtish/mesto-project.git"
+  },
+  "author": "Max Tish\u001b[D\u001b[D\u001b\u001b[C\u001b[C\u001b[C\u001btish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxtish/mesto-project/issues"
+  },
+  "homepage": "https://github.com/maxtish/mesto-project#readme",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
+}

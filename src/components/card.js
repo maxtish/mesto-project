@@ -3,7 +3,7 @@ const elementsList = document.querySelector('#elements-list'); // Место к�
 import { popupImage } from './index.js';
 import { openPopup, closeEsc } from './modal.js';
 //Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
-const initialCards = [
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -74,12 +74,6 @@ function createCard(title, link) {
 export function renderCard(title, link) {
   elementsList.prepend(createCard(title, link));
 }
-// Добавляем все карточки из массива
-initialCards.forEach(function (item) {
-  const title = item.name;
-  const link = item.link;
-  renderCard(title, link);
-});
 
 // Картинка открытие
 function openImg(title, link) {

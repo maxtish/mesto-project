@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
+
 </head>
 
 <body class="page">
 
     <header class="header">
-        <img class="logo" src="./images/logo.svg" alt="Место">
+        <img class="logo" src="<%=require('./images/logo.svg')%>" alt="Место">
     </header>
 
     <main class="content">
 
         <section class="profile">
             <div class="profile__image" id="profile-edit-ava-button"><img class="profile__avatar"
-                    src="./images/cousteau.jpg" alt="Аватарка"></div>
+                    src="<%=require('./images/cousteau.jpg')%>" alt="Аватарка"></div>
             <div class="profile__info">
                 <h1 class="profile__name" id="profile-name">Жак-Ив Кусто</h1>
                 <button class="profile__edit-button" id="profile-edit-button" type="button"
@@ -128,13 +128,13 @@
     </template>
 
 
-
-    <script src="./src/components/index.js" type="module"></script>
-    <script src="./src/components/validate.js" type="module"></script>
-    <script src="./src/components/card.js" type="module"></script>
-    <script src="./src/components/modal.js" type="module"></script>
-    <script src="./src/components/utils.js" type="module"></script>
-
+    <!--
+    <script src="./components/index.js" type="module"></script>
+    <script src="./components/card.js" type="module"></script>
+    <script src="./components/modal.js" type="module"></script>
+    <script src="./components/utils.js" type="module"></script>
+    <script src="./components/validate.js" type="module"></script>
+    -->
 
 </body>
 

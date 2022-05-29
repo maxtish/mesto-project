@@ -1,3 +1,5 @@
+import '../pages/index.css'; // добавьте импорт главного файла стилей
+
 // Окна
 export const popupEdit = document.querySelector('#popup-edit'); // Окно - "Редактировать профиль"
 export const popupNewCard = document.querySelector('#popup-new-cards'); // Окно - "Новое место"
@@ -28,6 +30,7 @@ export const titleInput = popupNewCard.querySelector('#name-input-cards'); // П
 export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
 
 import { enableValidationEvt } from './validate.js';
+
 import {
   loadInfoPopupEdit,
   openPopup,
@@ -35,6 +38,14 @@ import {
   closeEsc,
   closeOver,
 } from './modal.js';
+
+import { renderCard, initialCards } from './card.js';
+// Добавляем все карточки из массива
+initialCards.forEach(function (item) {
+  const title = item.name;
+  const link = item.link;
+  renderCard(title, link);
+});
 
 // закрыть оверлей
 closeOver();

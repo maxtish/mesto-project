@@ -3,15 +3,10 @@ import '../pages/index.css'; // Импорт главного файла сти�
 import {
   popupEdit,
   popupNewCard,
-  popupImage,
   popupAva,
   buttonOpenProfileEdit,
   buttonOpenNewCard,
   buttonOpenEditAva,
-  buttonCloseProfileEdit,
-  buttonCloseNewCard,
-  buttonCloseImage,
-  buttonCloseAva,
   formProfileElement,
   nameInput,
   jobInput,
@@ -79,7 +74,6 @@ buttonOpenProfileEdit.addEventListener('click', function (evt) {
 buttonOpenNewCard.addEventListener('click', function (evt) {
   formCards.reset(); // Очистка полей после кнопки "сохранить"
   openPopup(popupNewCard);
-
   // При открытии формы добавления карточки также необходимо деактивировать кнопку сабмита
   inactiveButton(popupNewCard);
 });

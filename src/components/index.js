@@ -1,97 +1,100 @@
 import '../pages/index.css'; // Импорт главного файла стилей
 
-// Окна
-export const popupEdit = document.querySelector('#popup-edit'); // Окно - "Редактировать профиль"
-export const popupNewCard = document.querySelector('#popup-new-cards'); // Окно - "Новое место"
-export const popupImage = document.querySelector('#popup-img'); // Окно - "Картинка"
-const popupAva = document.querySelector('#popup-ava'); // Окно - "Обновить аватар"
+import {
+  popupEdit,
+  popupNewCard,
+  popupImage,
+  popupAva,
+  buttonOpenProfileEdit,
+  buttonOpenNewCard,
+  buttonOpenEditAva,
+  buttonCloseProfileEdit,
+  buttonCloseNewCard,
+  buttonCloseImage,
+  buttonCloseAva,
+  formProfileElement,
+  nameInput,
+  jobInput,
+  profileName,
+  profileHobby,
+  formCards,
+  titleInput,
+  linkInput,
+  formAva,
+  inactiveButton,
+} from './utils.js';
 
-// Кнопки ОТКРЫТЬ
-const buttonOpenProfileEdit = document.querySelector('#profile-edit-button'); // Кнопка - открыть "Редактировать профиль"
-const buttonOpenNewCard = document.querySelector('#popup-form-cards-button'); // Кнопка - открыть "Новое место"
-const buttonOpenEditAva = document.querySelector('#profile-edit-ava-button'); // Кнопка - открыть "Обновить аватар"
+import { openPopup, closePopup } from './modal.js';
 
-// Кнопки ЗАКРЫТЬ
-const buttonCloseProfileEdit = popupEdit.querySelector('#popup-close-edit'); // Кнопка закрыть - "Редактировать профиль"
-const buttonCloseNewCard = popupNewCard.querySelector('#popup-close-cards'); // Кнопка - закрыть "Новое место"
-const buttonCloseImage = popupImage.querySelector('#popup-close-img'); // Кнопка - закрыть "Картинка"
-const buttonCloseAva = popupAva.querySelector('#popup-close-ava'); // Кнопка - закрыть "Обновить аватар"
+import { enableValidation } from './validate.js';
+import { config } from './globalscope.js';
 
-// Форма "Редактировать профиль"
-export const formElement = popupEdit.querySelector('#profile-edit'); // Форма редактирования профиля
-export const nameInput = popupEdit.querySelector('#name-input-profile'); // Поле редактирования Имя
-export const jobInput = popupEdit.querySelector('#job-input-profile'); // Поле редактирования Работа
-export const profileName = document.querySelector('#profile-name'); // Имя профиля на странице
-export const profileHobby = document.querySelector('#profile-hobby'); // Работа профиля на странице
+//Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+];
 
-// Форма "Новое место"
-export const formCards = popupNewCard.querySelector('#popup-form-cards'); // Форма "Новое место"
-export const titleInput = popupNewCard.querySelector('#name-input-cards'); // Поле "Название"
-export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
-
-import { renderCard, initialCards } from './card.js'; // Добавляем все карточки из массива
+import { renderCard } from './card.js'; // Добавляем все карточки из массива
 initialCards.forEach(function (item) {
   const title = item.name;
   const link = item.link;
   renderCard(title, link);
 });
 
-import {
-  loadInfoPopupEdit,
-  openPopup,
-  closePopup,
-  closeEsc,
-  closeOver,
-} from './modal.js';
-
-import { enableValidationEvt } from './validate.js';
-
-// закрыть оверлей
-closeOver();
+enableValidation(popupEdit, config);
+enableValidation(popupNewCard, config);
+enableValidation(popupAva, config);
 
 //слушатель кнопка открыть - "Редактировать профиль"
 buttonOpenProfileEdit.addEventListener('click', function (evt) {
   // подгружаем информацию о пользователе в соответствующие поля
   loadInfoPopupEdit();
   openPopup(popupEdit);
-  closeEsc(popupEdit);
-  enableValidationEvt(evt);
 });
 
 //слушатель кнопка открыть - "Новое место"
 buttonOpenNewCard.addEventListener('click', function (evt) {
-  formCards.reset(); // Очистка полей после кнопки "добавить"
+  formCards.reset(); // Очистка полей после кнопки "сохранить"
   openPopup(popupNewCard);
-  closeEsc(popupNewCard);
-  enableValidationEvt(evt);
+
+  // При открытии формы добавления карточки также необходимо деактивировать кнопку сабмита
+  inactiveButton(popupNewCard);
 });
 
 //слушатель кнопка открыть - "Обновить аватар"
 buttonOpenEditAva.addEventListener('click', function (evt) {
-  formCards.reset(); // Очистка полей после кнопки "добавить"
+  formAva.reset(); // Очистка полей после кнопки "добавить"
   openPopup(popupAva);
-  closeEsc(popupAva);
-  enableValidationEvt(evt);
 });
 
-//слушатель кнопка закрыть - "Редактировать профиль"
-buttonCloseProfileEdit.addEventListener('click', function () {
-  closePopup(popupEdit);
-});
-//слушатель кнопка закрыть - "Новое место"
-buttonCloseNewCard.addEventListener('click', function () {
-  closePopup(popupNewCard);
-});
-
-//слушатель кнопка закрыть - "Картинка"
-buttonCloseImage.addEventListener('click', function () {
-  closePopup(popupImage);
-});
-
-//слушатель кнопка закрыть - "Обновить аватар"
-buttonCloseAva.addEventListener('click', function () {
-  closePopup(popupAva);
-});
+// Функция подгрузки информации о пользователе в соответствующие поля
+function loadInfoPopupEdit() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileHobby.textContent;
+}
 
 ////////////////////////////////////ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"/////////////////////////
 
@@ -104,7 +107,7 @@ function sendingFormProfile(evt) {
   profileHobby.textContent = jobInput.value;
   closePopup(popupEdit);
 }
-formElement.addEventListener('submit', sendingFormProfile);
+formProfileElement.addEventListener('submit', sendingFormProfile);
 
 /////////////////////////////////// ОБРАБОТЧИК ОТПРАВКИ "Новое место"////////////////////////////////
 function sendingFormCard(evt) {

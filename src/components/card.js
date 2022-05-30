@@ -1,35 +1,8 @@
-import { popupImage } from './index.js';
+import { popupImage } from './utils.js';
 import { openPopup, closeEsc } from './modal.js';
 
 const cardContainer = document.querySelector('#card-container').content; // template карточки
 const elementsList = document.querySelector('#elements-list'); // Место куда необходимо вставлять карточки
-//Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
 
 // Функция like
 function activatesLike(evt) {
@@ -38,8 +11,8 @@ function activatesLike(evt) {
 // Функция удаления карточки
 function deleteCard() {
   const listItem = elementsList
-    .querySelector('#button-delete')
-    .closest('#elements-element');
+    .querySelector('.button__delete')
+    .closest('.elements__element');
   listItem.remove();
 }
 
@@ -47,23 +20,23 @@ function deleteCard() {
 function createCard(title, link) {
   // Клонируем содержимое тега template
   const templateCardContainer = cardContainer
-    .querySelector('#elements-element')
+    .querySelector('.elements__element')
     .cloneNode(true);
   // Наполняем содержимым
-  templateCardContainer.querySelector('#elements-image').src = link;
-  templateCardContainer.querySelector('#elements-image').alt = title;
-  templateCardContainer.querySelector('#elements-title').textContent = title;
+  templateCardContainer.querySelector('.elements__image').src = link;
+  templateCardContainer.querySelector('.elements__image').alt = title;
+  templateCardContainer.querySelector('.elements__title').textContent = title;
 
   templateCardContainer
-    .querySelector('#button-delete')
+    .querySelector('.button__delete')
     .addEventListener('click', deleteCard); // Слушатель кнопку удаления
 
   templateCardContainer
-    .querySelector('#elements-like')
+    .querySelector('.elements__like')
     .addEventListener('click', activatesLike); //Слушатель Like
 
   templateCardContainer
-    .querySelector('#elements-image')
+    .querySelector('.elements__image')
     .addEventListener('click', () => {
       openImg(title, link);
     }); //Слушатель для открытия Картинка
@@ -84,5 +57,4 @@ function openImg(title, link) {
   imgLink.src = link;
   imgLink.alt = title;
   openPopup(popupImage);
-  closeEsc(popupImage);
 }

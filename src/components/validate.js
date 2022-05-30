@@ -1,24 +1,31 @@
 // Валидация формы - Любой по клику определяем evt.target.id обрезаем -button и получаем id формы которая появилась
 // Используем стандартные браузерные тексты ошибок.
-const showInputError = (formElement, inputElement, errorMessage) => {
+
+const showInputError = (formElement, inputElement, errorMessage, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__item_type_error');
-  errorElement.classList.add('popup__item-error_active');
+  inputElement.classList.add(config.inputErrorClass);
+  errorElement.classList.add(config.errorActiveClass);
   errorElement.textContent = errorMessage;
 };
 
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__item_type_error');
-  errorElement.classList.remove('popup__item-error_active');
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.classList.remove(config.errorActiveClass);
   errorElement.textContent = '';
 };
 
-const checkInputValidity = (formElement, inputElement) => {
+// inputElement.classList.add(config.inputErrorClass)
+const checkInputValidity = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config
+    );
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, config);
   }
 };
 
@@ -28,45 +35,49 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('button_inactive');
+    buttonElement.classList.add(config.buttonInactive);
+    buttonElement.setAttribute('disabled', 'disabled');
   } else {
-    buttonElement.classList.remove('button_inactive');
+    buttonElement.classList.remove(config.buttonInactive);
+    buttonElement.removeAttribute('disabled');
   }
 };
 
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__item'));
+const setEventListeners = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
 
-  const buttonElement = formElement.querySelector('.popup__submit');
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   // чтобы проверить состояние кнопки в самом начале
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, config);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
+      checkInputValidity(formElement, inputElement, config);
       // чтобы проверять его при изменении любого из полей
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement, config);
     });
   });
 };
 
-const enableValidation = (popupElement) => {
+export const enableValidation = (popupElement, config) => {
   /*const formList = Array.from(document.querySelectorAll('.popup__form'));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
       });
-      
+      console.log(config);
       setEventListeners(formElement);
   */
   popupElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
   });
 
-  setEventListeners(popupElement);
+  setEventListeners(popupElement, config);
   /*
       const fieldsetList = Array.from(
         formElement.querySelectorAll('.popup__set')
@@ -76,10 +87,16 @@ const enableValidation = (popupElement) => {
       });
   */
 };
-
-export function enableValidationEvt(evt) {
+/*
+export function enableValidationEvt(evt, config) {
   const popupElementText = evt.target.id.slice(0, -7);
   const popupElement = document.querySelector(`#${popupElementText}`);
 
-  enableValidation(popupElement);
+  enableValidation(popupElement, config);
 }
+
+///// деактивация кнопки /////
+const inactiveButtonState = (buttonElement) => {
+  buttonElement.classList.add('button_inactive');
+};
+*/

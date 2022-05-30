@@ -1,7 +1,8 @@
-const cardContainer = document.querySelector('#card-container').content; // template карточки
-const elementsList = document.querySelector('#elements-list'); // Место куда необходимо вставлять карточки
 import { popupImage } from './index.js';
 import { openPopup, closeEsc } from './modal.js';
+
+const cardContainer = document.querySelector('#card-container').content; // template карточки
+const elementsList = document.querySelector('#elements-list'); // Место куда необходимо вставлять карточки
 //Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
 export const initialCards = [
   {

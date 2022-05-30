@@ -1,4 +1,4 @@
-import '../pages/index.css'; // добавьте импорт главного файла стилей
+import '../pages/index.css'; // Импорт главного файла стилей
 
 // Окна
 export const popupEdit = document.querySelector('#popup-edit'); // Окно - "Редактировать профиль"
@@ -29,8 +29,7 @@ export const formCards = popupNewCard.querySelector('#popup-form-cards'); // Ф�
 export const titleInput = popupNewCard.querySelector('#name-input-cards'); // Поле "Название"
 export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
 
-import { renderCard, initialCards } from './card.js';
-// Добавляем все карточки из массива
+import { renderCard, initialCards } from './card.js'; // Добавляем все карточки из массива
 initialCards.forEach(function (item) {
   const title = item.name;
   const link = item.link;

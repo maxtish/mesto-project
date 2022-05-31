@@ -22,7 +22,7 @@ import {
 import { openPopup, closePopup } from './modal.js';
 
 import { enableValidation } from './validate.js';
-import { config } from './globalscope.js';
+import { config } from './constants.js';
 
 //Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
 const initialCards = [

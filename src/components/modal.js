@@ -1,4 +1,4 @@
-import { ESC_CODE } from './globalscope.js';
+import { ESC_CODE } from './constants.js';
 
 // функция открытия попапа
 export function openPopup(popup) {
@@ -23,8 +23,8 @@ function closeByEsc(evt) {
 // функция кнопка закрыть оверлей
 function closeOver(evt) {
   if (evt.target.classList.contains('popup_opened')) {
-    evt.target.classList.toggle('popup_opened');
-    removeEvent();
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   }
 }
 

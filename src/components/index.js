@@ -25,7 +25,7 @@ import { enableValidation } from './validate.js';
 import { config } from './constants.js';
 
 //Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
-const initialCards = [
+export let initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -111,3 +111,14 @@ function sendingFormCard(evt) {
 }
 // Прикрепляем обработчик к форме: // он будет следить за событием “submit” - «отправка»
 formCards.addEventListener('submit', sendingFormCard);
+
+import { loadUserName, loadUserAbout, loadUserAva, loadCards } from './api.js';
+
+///////// Загрузка информации о пользователе с сервера //////////////
+loadUserName();
+loadUserAbout();
+loadUserAva();
+
+////////cards();
+
+loadCards();

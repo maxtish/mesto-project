@@ -3,6 +3,7 @@ export const popupEdit = document.querySelector('#popup-edit'); // Окно - "�
 export const popupNewCard = document.querySelector('#popup-new-cards'); // Окно - "Новое место"
 export const popupImage = document.querySelector('#popup-img'); // Окно - "Картинка"
 export const popupAva = document.querySelector('#popup-ava'); // Окно - "Обновить аватар"
+export const popupDellCard = document.querySelector('#popup-del-cards'); // Окно - "Удалить катрочку"
 
 // Кнопки ОТКРЫТЬ
 export const buttonOpenProfileEdit = document.querySelector(
@@ -34,6 +35,11 @@ export const profileHobby = document.querySelector('#profile-hobby'); // Раб�
 export const formCards = popupNewCard.querySelector('#popup-form-cards'); // Форма "Новое место"
 export const titleInput = popupNewCard.querySelector('#name-input-cards'); // Поле "Название"
 export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
+
+// Форма "Удалить катрочку"
+export const formDellCard = popupDellCard.querySelector(
+  '#popup-form-dellcards'
+); // Форма редактирования профиля
 
 // Форма "Обновить аватар"
 export const formAva = popupAva.querySelector('#profile-edit-ava'); // Форма "Обновить аватар"

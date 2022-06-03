@@ -102,6 +102,21 @@
             </div>
         </div>
 
+        <!--Удалить катрочку-->
+        <div class="popup" id="popup-del-cards">
+            <!--popup_opened-->
+            <div class="popup__container">
+                <button class="popup__close" id="popup-close-cards" type="button" aria-label="Закрыть"></button>
+                <form class="popup__form" id="popup-form-dellcards" name="del-card">
+                    <h2 class="popup__title">Вы уверены?</h2>
+                    <fieldset class="popup__handlers">
+                        <input class="popup__button" type="submit" value="Да">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
         <!--Картинка-->
         <div class="popup popup_gallery" id="popup-img">
             <!--popup_opened-->
@@ -123,7 +138,10 @@
             <button class="button__delete" type="button" aria-label="Удалить"></button>
             <img class="elements__image" src="#" alt="#">
             <h2 class="elements__title"></h2>
-            <button class="elements__like" type="button" aria-label="Нравится"></button>
+            <div class="elements__wrapper-like">
+                <button class="elements__like" type="button" aria-label="Нравится"></button>
+                <p class="elements__number-likes"></p>
+            </div>
         </li>
     </template>
 

@@ -1,23 +1,24 @@
-import { popupImage } from './utils.js';
+import { popupImage, popupDellCard } from './utils.js';
 import { openPopup, closeEsc } from './modal.js';
-
+import { likeCard, dellLikeCard } from './api.js';
+export let idCardSending;
 const cardContainer = document.querySelector('#card-container').content; // template карточки
 const elementsList = document.querySelector('#elements-list'); // Место куда необходимо вставлять карточки
 
 // Функция like
 function activatesLike(evt) {
+  const idCardLike = evt.target.closest('.elements__element').id;
+  const element = evt.target.classList.value;
+  if (element === 'elements__like') {
+    likeCard(idCardLike);
+  } else {
+    dellLikeCard(idCardLike);
+  }
   evt.target.classList.toggle('elements__like_active');
-}
-// Функция удаления карточки
-function deleteCard() {
-  const listItem = elementsList
-    .querySelector('.button__delete')
-    .closest('.elements__element');
-  listItem.remove();
 }
 
 // Функция создание карточки
-function createCard(title, link) {
+function createCard(title, link, likes) {
   // Клонируем содержимое тега template
   const templateCardContainer = cardContainer
     .querySelector('.elements__element')
@@ -26,11 +27,15 @@ function createCard(title, link) {
   templateCardContainer.querySelector('.elements__image').src = link;
   templateCardContainer.querySelector('.elements__image').alt = title;
   templateCardContainer.querySelector('.elements__title').textContent = title;
+  templateCardContainer.querySelector('.elements__number-likes').textContent =
+    likes;
 
   templateCardContainer
     .querySelector('.button__delete')
-    .addEventListener('click', deleteCard); // Слушатель кнопку удаления
-
+    .addEventListener('click', function (evt) {
+      idCardSending = evt.target.closest('.elements__element').id;
+      openPopup(popupDellCard); // Слушатель кнопку удаления
+    });
   templateCardContainer
     .querySelector('.elements__like')
     .addEventListener('click', activatesLike); //Слушатель Like
@@ -45,8 +50,10 @@ function createCard(title, link) {
 }
 
 // Функция отрисовки карточки
-export function renderCard(title, link) {
-  elementsList.prepend(createCard(title, link));
+export function renderCard(title, link, likes, id, idCard) {
+  elementsList.prepend(createCard(title, link, likes));
+  detecktIdProfile(id);
+  document.querySelector('.elements__element').id = idCard;
 }
 
 // Картинка открытие
@@ -58,3 +65,13 @@ function openImg(title, link) {
   imgLink.alt = title;
   openPopup(popupImage);
 }
+
+//"a08e6a36aa420102251e6f12"  buttonDell.classList.add(button__delete_inactive);
+
+const detecktIdProfile = (id) => {
+  if (id === 'a08e6a36aa420102251e6f12') {
+    document
+      .querySelector('.button__delete')
+      .classList.add('button__delete_active');
+  }
+};

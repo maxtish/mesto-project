@@ -17,47 +17,25 @@ import {
   linkInput,
   formAva,
   inactiveButton,
+  formDellCard,
+  popupDellCard,
 } from './utils.js';
 
 import { openPopup, closePopup } from './modal.js';
 
 import { enableValidation } from './validate.js';
 import { config } from './constants.js';
+import {
+  loadUserName,
+  loadUserAbout,
+  loadUserAva,
+  loadCards,
+  sendEditProfile,
+  sendNewCard,
+  dellNewCard,
+} from './api.js';
 
-//Массив с карточками. При загрузке на странице должно быть 6 карточек, которые добавит JavaScript.
-export let initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
-
-import { renderCard } from './card.js'; // Добавляем все карточки из массива
-initialCards.forEach(function (item) {
-  const title = item.name;
-  const link = item.link;
-  renderCard(title, link);
-});
+import { renderCard, idCardSending } from './card.js';
 
 enableValidation(popupEdit, config);
 enableValidation(popupNewCard, config);
@@ -99,6 +77,9 @@ function sendingFormProfile(evt) {
   // Вставьте новые значения с помощью textContent
   profileName.textContent = nameInput.value;
   profileHobby.textContent = jobInput.value;
+  sendEditProfile(nameInput.value, jobInput.value);
+  loadUserName();
+  loadUserAbout();
   closePopup(popupEdit);
 }
 formProfileElement.addEventListener('submit', sendingFormProfile);
@@ -107,18 +88,26 @@ formProfileElement.addEventListener('submit', sendingFormProfile);
 function sendingFormCard(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки.
   renderCard(titleInput.value, linkInput.value);
+  sendNewCard(titleInput.value, linkInput.value);
+  loadCards();
   closePopup(popupNewCard);
 }
 // Прикрепляем обработчик к форме: // он будет следить за событием “submit” - «отправка»
 formCards.addEventListener('submit', sendingFormCard);
-
-import { loadUserName, loadUserAbout, loadUserAva, loadCards } from './api.js';
 
 ///////// Загрузка информации о пользователе с сервера //////////////
 loadUserName();
 loadUserAbout();
 loadUserAva();
 
-////////cards();
-
+///////// Загрузка карточек с сервера //////////////
 loadCards();
+
+////////////////////////////////////ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"/////////////////////////
+
+function sendingDellCard(evt) {
+  evt.preventDefault();
+  dellNewCard(idCardSending);
+  closePopup(popupDellCard);
+}
+formDellCard.addEventListener('submit', sendingDellCard);

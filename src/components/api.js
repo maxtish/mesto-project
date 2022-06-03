@@ -47,7 +47,7 @@ export const loadUserAva = () => {
 };
 
 ///////// Загрузка карточек с сервера //////////////
-
+import { renderCard } from './card.js';
 export const loadCards = () => {
   fetch(`${config.baseUrl}/cards`, {
     headers: {
@@ -58,5 +58,99 @@ export const loadCards = () => {
     .then((result) => {
       const cardsJSON = JSON.stringify(result);
       const cardsObject = JSON.parse(cardsJSON);
+
+      cardsObject.forEach(function (item) {
+        const idCard = item._id;
+        const title = item.name;
+        const link = item.link;
+        const likes = item.likes.length;
+        const id = item.owner._id;
+        renderCard(title, link, likes, id, idCard);
+      });
+    });
+};
+
+///////// Редактирование профиля  с сервера //////////////
+export const sendEditProfile = (nameProf, aboutProf) => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: nameProf,
+      about: aboutProf,
+    }),
+  });
+};
+
+///////// Добавление новой карточки //////////////
+
+export const sendNewCard = (nameCard, linkCard) => {
+  return fetch(`${config.baseUrl}/cards `, {
+    method: 'POST',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify({
+      name: nameCard,
+      link: linkCard,
+    }),
+  })
+    .then((response) => response.json())
+
+    .then((post) => {
+      console.log(post);
+    });
+};
+
+///////// Удаление новой карточки //////////////
+
+export const dellNewCard = (id) => {
+  return fetch(`${config.baseUrl}/cards/${id} `, {
+    method: 'DELETE',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+
+    .then((post) => {
+      console.log(post);
+    });
+};
+
+///////// Лайк карточки //////////////
+
+export const likeCard = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id} `, {
+    method: 'PUT',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+
+    .then((post) => {
+      console.log(post);
+    });
+};
+
+export const dellLikeCard = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id} `, {
+    method: 'DELETE',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+
+    .then((post) => {
+      console.log(post);
     });
 };

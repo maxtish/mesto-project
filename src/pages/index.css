@@ -52,6 +52,9 @@
 @import url(../blocks/elements/__like/elements__like.css);
 @import url(../blocks/elements/__like/_active/elements__like_active.css);
 @import url(../blocks/elements/__delete/button__delete.css);
+@import url(../blocks/elements/__wrapper-like/elements__wrapper-like.css);
+@import url(../blocks/elements/__number-likes/elements__number-likes.css);
+@import url(../blocks/elements/__delete/_active/button__delete_active.css);
 
 /* footer */
 @import url(../blocks/footer/footer.css);

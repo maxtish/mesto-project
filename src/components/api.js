@@ -1,3 +1,5 @@
+import { renderCard } from './card.js';
+
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-10',
   headers: {
@@ -46,8 +48,8 @@ export const loadUserAva = () => {
     });
 };
 
-///////// Загрузка карточек с сервера //////////////
-import { renderCard } from './card.js';
+///////// Загрузка карточек с сервера ////////////// owner "a08e6a36aa420102251e6f12"
+
 export const loadCards = () => {
   fetch(`${config.baseUrl}/cards`, {
     headers: {
@@ -59,13 +61,22 @@ export const loadCards = () => {
       const cardsJSON = JSON.stringify(result);
       const cardsObject = JSON.parse(cardsJSON);
 
+      let ownerLike = false;
+      const ownerId = 'a08e6a36aa420102251e6f12';
       cardsObject.forEach(function (item) {
+        ownerLike = false;
+        item.likes.forEach(function (element) {
+          if (element._id === ownerId) {
+            ownerLike = true;
+          }
+        });
+
         const idCard = item._id;
         const title = item.name;
         const link = item.link;
         const likes = item.likes.length;
         const id = item.owner._id;
-        renderCard(title, link, likes, id, idCard);
+        renderCard(title, link, likes, id, idCard, ownerLike);
       });
     });
 };
@@ -82,7 +93,14 @@ export const sendEditProfile = (nameProf, aboutProf) => {
       name: nameProf,
       about: aboutProf,
     }),
-  });
+  })
+    .then((response) => response.json())
+
+    .then((post) => {
+      console.log(post);
+      loadUserName();
+      loadUserAbout();
+    });
 };
 
 ///////// Добавление новой карточки //////////////
@@ -125,8 +143,8 @@ export const dellNewCard = (id) => {
 
 ///////// Лайк карточки //////////////
 
-export const likeCard = (id) => {
-  return fetch(`${config.baseUrl}/cards/likes/${id} `, {
+export const likeCard = (id, LikeContent) => {
+  fetch(`${config.baseUrl}/cards/likes/${id} `, {
     method: 'PUT',
     headers: {
       authorization: config.headers.authorization,
@@ -136,11 +154,11 @@ export const likeCard = (id) => {
     .then((response) => response.json())
 
     .then((post) => {
-      console.log(post);
+      LikeContent.textContent = post.likes.length;
     });
 };
 
-export const dellLikeCard = (id) => {
+export const dellLikeCard = (id, LikeContent) => {
   return fetch(`${config.baseUrl}/cards/likes/${id} `, {
     method: 'DELETE',
     headers: {
@@ -151,6 +169,27 @@ export const dellLikeCard = (id) => {
     .then((response) => response.json())
 
     .then((post) => {
+      LikeContent.textContent = post.likes.length;
+    });
+};
+
+///////// Обновление аватара пользователя //////////////
+
+export const meAvatar = (linkAvatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      avatar: linkAvatar,
+    }),
+  })
+    .then((response) => response.json())
+
+    .then((post) => {
       console.log(post);
+      loadUserAva();
     });
 };

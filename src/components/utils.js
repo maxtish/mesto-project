@@ -43,6 +43,7 @@ export const formDellCard = popupDellCard.querySelector(
 
 // Форма "Обновить аватар"
 export const formAva = popupAva.querySelector('#profile-edit-ava'); // Форма "Обновить аватар"
+export const linkInputAva = popupAva.querySelector('#name-input-ava'); // Поле "Ссылка на картинку"
 
 // При открытии формы добавления карточки также необходимо деактивировать кнопку сабмита
 export function inactiveButton(popup) {

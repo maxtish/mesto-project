@@ -8,11 +8,16 @@ const elementsList = document.querySelector('#elements-list'); // Место к�
 // Функция like
 function activatesLike(evt) {
   const idCardLike = evt.target.closest('.elements__element').id;
+  const elementLikeContent = evt.target.closest('.elements__element');
+  const LikeContent = elementLikeContent.querySelector(
+    '.elements__number-likes'
+  );
+
   const element = evt.target.classList.value;
   if (element === 'elements__like') {
-    likeCard(idCardLike);
+    likeCard(idCardLike, LikeContent);
   } else {
-    dellLikeCard(idCardLike);
+    dellLikeCard(idCardLike, LikeContent);
   }
   evt.target.classList.toggle('elements__like_active');
 }
@@ -50,9 +55,10 @@ function createCard(title, link, likes) {
 }
 
 // Функция отрисовки карточки
-export function renderCard(title, link, likes, id, idCard) {
+export function renderCard(title, link, likes, id, idCard, ownerLike) {
   elementsList.prepend(createCard(title, link, likes));
   detecktIdProfile(id);
+  detecktOwnerLike(ownerLike);
   document.querySelector('.elements__element').id = idCard;
 }
 
@@ -73,5 +79,17 @@ const detecktIdProfile = (id) => {
     document
       .querySelector('.button__delete')
       .classList.add('button__delete_active');
+  }
+};
+
+const detecktOwnerLike = (ownerLike) => {
+  if (ownerLike) {
+    document
+      .querySelector('.elements__like')
+      .classList.add('elements__like_active');
+  } else {
+    document
+      .querySelector('.elements__like')
+      .classList.remove('elements__like_active');
   }
 };

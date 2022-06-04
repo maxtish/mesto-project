@@ -19,6 +19,7 @@ import {
   inactiveButton,
   formDellCard,
   popupDellCard,
+  linkInputAva,
 } from './utils.js';
 
 import { openPopup, closePopup } from './modal.js';
@@ -33,6 +34,7 @@ import {
   sendEditProfile,
   sendNewCard,
   dellNewCard,
+  meAvatar,
 } from './api.js';
 
 import { renderCard, idCardSending } from './card.js';
@@ -59,6 +61,7 @@ buttonOpenNewCard.addEventListener('click', function (evt) {
 //слушатель кнопка открыть - "Обновить аватар"
 buttonOpenEditAva.addEventListener('click', function (evt) {
   formAva.reset(); // Очистка полей после кнопки "добавить"
+
   openPopup(popupAva);
 });
 
@@ -111,3 +114,12 @@ function sendingDellCard(evt) {
   closePopup(popupDellCard);
 }
 formDellCard.addEventListener('submit', sendingDellCard);
+
+////////////////////////////////////ОБРАБОТЧИК ОТПРАВКИ "Обновление аватара пользователя"/////////////////////////
+
+function sendingMeAvatar(evt) {
+  evt.preventDefault();
+  meAvatar(linkInputAva.value);
+  closePopup(popupAva);
+}
+formAva.addEventListener('submit', sendingMeAvatar);

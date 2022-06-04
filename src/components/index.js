@@ -22,6 +22,7 @@ import {
   linkInputAva,
   renderLoadingAva,
   renderLoadingNewCard,
+  profileId,
 } from './utils.js';
 
 import { openPopup, closePopup } from './modal.js';
@@ -29,9 +30,7 @@ import { openPopup, closePopup } from './modal.js';
 import { enableValidation } from './validate.js';
 import { config } from './constants.js';
 import {
-  loadUserName,
-  loadUserAbout,
-  loadUserAva,
+  loadUserinfo,
   loadCards,
   sendEditProfile,
   sendNewCard,
@@ -40,6 +39,8 @@ import {
 } from './api.js';
 
 import { renderCard, idCardSending } from './card.js';
+
+////////////////////////////////////////////////
 
 enableValidation(popupEdit, config);
 enableValidation(popupNewCard, config);
@@ -56,7 +57,7 @@ buttonOpenProfileEdit.addEventListener('click', function (evt) {
 buttonOpenNewCard.addEventListener('click', function (evt) {
   formCards.reset(); // Очистка полей после кнопки "сохранить"
   openPopup(popupNewCard);
-  // При открытии формы добавления карточки также необходимо деактивировать кнопку сабмита
+  // деактивировать кнопку сабмита
   inactiveButton(popupNewCard);
 });
 
@@ -83,8 +84,7 @@ function sendingFormProfile(evt) {
   profileName.textContent = nameInput.value;
   profileHobby.textContent = jobInput.value;
   sendEditProfile(nameInput.value, jobInput.value);
-  loadUserName();
-  loadUserAbout();
+
   closePopup(popupEdit);
 }
 formProfileElement.addEventListener('submit', sendingFormProfile);
@@ -100,10 +100,8 @@ function sendingFormCard(evt) {
 formCards.addEventListener('submit', sendingFormCard);
 
 ///////// Загрузка информации о пользователе с сервера //////////////
-
-loadUserName();
-loadUserAbout();
-loadUserAva();
+loadUserinfo();
+console.log(profileId);
 
 ///////// Загрузка карточек с сервера //////////////
 loadCards();

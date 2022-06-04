@@ -45,6 +45,7 @@ export const formDellCard = popupDellCard.querySelector(
 // Форма "Обновить аватар"
 export const formAva = popupAva.querySelector('#profile-edit-ava'); // Форма "Обновить аватар"
 export const linkInputAva = popupAva.querySelector('#name-input-ava'); // Поле "Ссылка на картинку"
+export const profileAva = document.querySelector('.profile__avatar');
 
 // При открытии формы добавления карточки также необходимо деактивировать кнопку сабмита
 export function inactiveButton(popup) {
@@ -78,4 +79,14 @@ export function deleteCard(id) {
       element.remove();
     }
   });
+}
+
+///////// Загрузка информации о пользователе с сервера //////////////
+export let profileId = { data: '' };
+
+export function renderUserinfo(result) {
+  profileName.textContent = result.name;
+  profileHobby.textContent = result.about;
+  profileAva.src = result.avatar;
+  profileId.data = result._id;
 }

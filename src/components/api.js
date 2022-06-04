@@ -6,6 +6,8 @@ import {
   popupNewCard,
   deleteCard,
   popupDellCard,
+  renderUserinfo,
+  profileId,
 } from './utils.js';
 import { closePopup } from './modal.js';
 const config = {
@@ -17,12 +19,9 @@ const config = {
 };
 ///////// Загрузка информации о пользователе с сервера //////////////
 
-export const loadUserName = () => {
-  let userNameElement = document.querySelector('#profile-name');
+export const loadUserinfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
-    headers: {
-      authorization: config.headers.authorization,
-    },
+    headers: config.headers,
   })
     .then((res) => {
       if (res.ok) {
@@ -31,49 +30,7 @@ export const loadUserName = () => {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((result) => {
-      userNameElement.textContent = result.name;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-export const loadUserAbout = () => {
-  let userAboutElement = document.querySelector('#profile-hobby');
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      userAboutElement.textContent = result.about;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-export const loadUserAva = () => {
-  let userAvaElement = document.querySelector('.profile__avatar');
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      userAvaElement.src = result.avatar;
+      renderUserinfo(result);
     })
     .catch((err) => {
       console.log(err);
@@ -99,7 +56,7 @@ export const loadCards = () => {
       const cardsObject = JSON.parse(cardsJSON);
       cardsObject.reverse();
       let ownerLike = false;
-      const ownerId = 'a08e6a36aa420102251e6f12';
+      const ownerId = profileId.data;
       cardsObject.forEach(function (item) {
         ownerLike = false;
         item.likes.forEach(function (element) {

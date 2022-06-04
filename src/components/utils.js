@@ -36,6 +36,7 @@ export const formCards = popupNewCard.querySelector('#popup-form-cards'); // Ф�
 export const titleInput = popupNewCard.querySelector('#name-input-cards'); // Поле "Название"
 export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
 
+const elementsList = document.querySelector('#elements-list'); /// место вставки карточек
 // Форма "Удалить катрочку"
 export const formDellCard = popupDellCard.querySelector(
   '#popup-form-dellcards'
@@ -50,4 +51,32 @@ export function inactiveButton(popup) {
   const button = popup.querySelector('.popup__button');
   button.classList.add('button_inactive');
   button.setAttribute('disabled', 'disabled');
+}
+//////////// Меняем текст кнопки на: «Сохранение...», пока данные загружаются Форма "Обновить аватар"////////////////////////////
+export function renderLoadingAva(isLoading) {
+  if (isLoading) {
+    formAva.querySelector('.popup__button').value = 'Сохранение...';
+  } else {
+    formAva.querySelector('.popup__button').value = 'Сохранить';
+  }
+}
+
+//////////// Меняем текст кнопки на: «Сохранение...», пока данные загружаются Форма "Обновить аватар"////////////////////////////
+export function renderLoadingNewCard(isLoading) {
+  if (isLoading) {
+    formCards.querySelector('.popup__button').value = 'Создание...';
+  } else {
+    formCards.querySelector('.popup__button').value = 'Создать';
+  }
+}
+
+// Функция удаления карточки
+export function deleteCard(id) {
+  let arrId = elementsList.querySelectorAll('.elements__element');
+  arrId.forEach(function (element) {
+    console.log(element.id);
+    if (element.id === id) {
+      element.remove();
+    }
+  });
 }

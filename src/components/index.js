@@ -20,6 +20,8 @@ import {
   formDellCard,
   popupDellCard,
   linkInputAva,
+  renderLoadingAva,
+  renderLoadingNewCard,
 } from './utils.js';
 
 import { openPopup, closePopup } from './modal.js';
@@ -61,8 +63,8 @@ buttonOpenNewCard.addEventListener('click', function (evt) {
 //слушатель кнопка открыть - "Обновить аватар"
 buttonOpenEditAva.addEventListener('click', function (evt) {
   formAva.reset(); // Очистка полей после кнопки "добавить"
-
   openPopup(popupAva);
+  inactiveButton(popupAva);
 });
 
 // Функция подгрузки информации о пользователе в соответствующие поля
@@ -90,10 +92,9 @@ formProfileElement.addEventListener('submit', sendingFormProfile);
 /////////////////////////////////// ОБРАБОТЧИК ОТПРАВКИ "Новое место"////////////////////////////////
 function sendingFormCard(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки.
-  renderCard(titleInput.value, linkInput.value);
+  renderLoadingNewCard(true);
+  //renderCard(titleInput.value, linkInput.value);
   sendNewCard(titleInput.value, linkInput.value);
-  loadCards();
-  closePopup(popupNewCard);
 }
 // Прикрепляем обработчик к форме: // он будет следить за событием “submit” - «отправка»
 formCards.addEventListener('submit', sendingFormCard);
@@ -106,12 +107,11 @@ loadUserAva();
 ///////// Загрузка карточек с сервера //////////////
 loadCards();
 
-////////////////////////////////////ОБРАБОТЧИК ОТПРАВКИ "Редактировать профиль"/////////////////////////
+////////////////////////////////////ОБРАБОТЧИК ОТПРАВКИ "Удалить карточку"/////////////////////////
 
 function sendingDellCard(evt) {
   evt.preventDefault();
   dellNewCard(idCardSending);
-  closePopup(popupDellCard);
 }
 formDellCard.addEventListener('submit', sendingDellCard);
 
@@ -119,7 +119,7 @@ formDellCard.addEventListener('submit', sendingDellCard);
 
 function sendingMeAvatar(evt) {
   evt.preventDefault();
+  renderLoadingAva(true);
   meAvatar(linkInputAva.value);
-  closePopup(popupAva);
 }
 formAva.addEventListener('submit', sendingMeAvatar);

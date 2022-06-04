@@ -1,5 +1,13 @@
 import { renderCard } from './card.js';
-
+import {
+  renderLoadingAva,
+  popupAva,
+  renderLoadingNewCard,
+  popupNewCard,
+  deleteCard,
+  popupDellCard,
+} from './utils.js';
+import { closePopup } from './modal.js';
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-10',
   headers: {
@@ -16,9 +24,17 @@ export const loadUserName = () => {
       authorization: config.headers.authorization,
     },
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       userNameElement.textContent = result.name;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -29,9 +45,17 @@ export const loadUserAbout = () => {
       authorization: config.headers.authorization,
     },
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       userAboutElement.textContent = result.about;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -42,9 +66,17 @@ export const loadUserAva = () => {
       authorization: config.headers.authorization,
     },
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       userAvaElement.src = result.avatar;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -56,11 +88,16 @@ export const loadCards = () => {
       authorization: config.headers.authorization,
     },
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       const cardsJSON = JSON.stringify(result);
       const cardsObject = JSON.parse(cardsJSON);
-
+      cardsObject.reverse();
       let ownerLike = false;
       const ownerId = 'a08e6a36aa420102251e6f12';
       cardsObject.forEach(function (item) {
@@ -78,6 +115,9 @@ export const loadCards = () => {
         const id = item.owner._id;
         renderCard(title, link, likes, id, idCard, ownerLike);
       });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -94,19 +134,26 @@ export const sendEditProfile = (nameProf, aboutProf) => {
       about: aboutProf,
     }),
   })
-    .then((response) => response.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
 
     .then((post) => {
-      console.log(post);
       loadUserName();
       loadUserAbout();
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
 ///////// Добавление новой карточки //////////////
 
 export const sendNewCard = (nameCard, linkCard) => {
-  return fetch(`${config.baseUrl}/cards `, {
+  fetch(`${config.baseUrl}/cards `, {
     method: 'POST',
     headers: {
       authorization: config.headers.authorization,
@@ -117,10 +164,38 @@ export const sendNewCard = (nameCard, linkCard) => {
       link: linkCard,
     }),
   })
-    .then((response) => response.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
 
-    .then((post) => {
-      console.log(post);
+    .then((result) => {
+      const cardsJSON = JSON.stringify(result);
+      const cardObject = JSON.parse(cardsJSON);
+      let ownerLike = false;
+      const ownerId = 'a08e6a36aa420102251e6f12';
+      ownerLike = false;
+      cardObject.likes.forEach(function (element) {
+        if (element._id === ownerId) {
+          ownerLike = true;
+        }
+      });
+      const idCard = cardObject._id;
+      const title = cardObject.name;
+      const link = cardObject.link;
+      const likes = cardObject.likes.length;
+      const id = cardObject.owner._id;
+      renderCard(title, link, likes, id, idCard, ownerLike);
+    })
+    .then(() => {
+      renderLoadingNewCard(false);
+
+      closePopup(popupNewCard);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -134,10 +209,20 @@ export const dellNewCard = (id) => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
-    .then((response) => response.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
 
     .then((post) => {
       console.log(post);
+      deleteCard(id);
+      closePopup(popupDellCard);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -151,10 +236,17 @@ export const likeCard = (id, LikeContent) => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
-    .then((response) => response.json())
-
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((post) => {
       LikeContent.textContent = post.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -166,10 +258,18 @@ export const dellLikeCard = (id, LikeContent) => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
-    .then((response) => response.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
 
     .then((post) => {
       LikeContent.textContent = post.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -186,10 +286,20 @@ export const meAvatar = (linkAvatar) => {
       avatar: linkAvatar,
     }),
   })
-    .then((response) => response.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
 
     .then((post) => {
       console.log(post);
       loadUserAva();
+      renderLoadingAva(false);
+      closePopup(popupAva);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

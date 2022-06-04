@@ -74,7 +74,6 @@ export function renderLoadingNewCard(isLoading) {
 export function deleteCard(id) {
   let arrId = elementsList.querySelectorAll('.elements__element');
   arrId.forEach(function (element) {
-    console.log(element.id);
     if (element.id === id) {
       element.remove();
     }

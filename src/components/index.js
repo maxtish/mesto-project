@@ -100,6 +100,7 @@ function sendingFormCard(evt) {
 formCards.addEventListener('submit', sendingFormCard);
 
 ///////// Загрузка информации о пользователе с сервера //////////////
+
 loadUserName();
 loadUserAbout();
 loadUserAva();

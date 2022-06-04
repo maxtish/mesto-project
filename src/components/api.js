@@ -83,7 +83,7 @@ export const loadUserAva = () => {
 ///////// Загрузка карточек с сервера ////////////// owner "a08e6a36aa420102251e6f12"
 
 export const loadCards = () => {
-  fetch(`${config.baseUrl}/cards`, {
+  return fetch(`${config.baseUrl}/cards`, {
     headers: {
       authorization: config.headers.authorization,
     },
@@ -153,7 +153,7 @@ export const sendEditProfile = (nameProf, aboutProf) => {
 ///////// Добавление новой карточки //////////////
 
 export const sendNewCard = (nameCard, linkCard) => {
-  fetch(`${config.baseUrl}/cards `, {
+  return fetch(`${config.baseUrl}/cards `, {
     method: 'POST',
     headers: {
       authorization: config.headers.authorization,
@@ -229,7 +229,7 @@ export const dellNewCard = (id) => {
 ///////// Лайк карточки //////////////
 
 export const likeCard = (id, LikeContent) => {
-  fetch(`${config.baseUrl}/cards/likes/${id} `, {
+  return fetch(`${config.baseUrl}/cards/likes/${id} `, {
     method: 'PUT',
     headers: {
       authorization: config.headers.authorization,

@@ -30,12 +30,14 @@ export const nameInput = popupEdit.querySelector('#name-input-profile'); // По
 export const jobInput = popupEdit.querySelector('#job-input-profile'); // Поле редактирования Работа
 export const profileName = document.querySelector('#profile-name'); // Имя профиля на странице
 export const profileHobby = document.querySelector('#profile-hobby'); // Работа профиля на странице
+export const buttonSubmitPopupEdit = popupEdit.querySelector('.popup__button'); // Кнопка сабмит
 
 // Форма "Новое место"
 export const formCards = popupNewCard.querySelector('#popup-form-cards'); // Форма "Новое место"
 export const titleInput = popupNewCard.querySelector('#name-input-cards'); // Поле "Название"
 export const linkInput = popupNewCard.querySelector('#link-input-cards'); // Поле "Ссылка на картинку"
-
+export const buttonSubmitPopupCard =
+  popupNewCard.querySelector('.popup__button'); //  Кнопка сабмит
 const elementsList = document.querySelector('#elements-list'); /// место вставки карточек
 // Форма "Удалить катрочку"
 export const formDellCard = popupDellCard.querySelector(
@@ -46,6 +48,7 @@ export const formDellCard = popupDellCard.querySelector(
 export const formAva = popupAva.querySelector('#profile-edit-ava'); // Форма "Обновить аватар"
 export const linkInputAva = popupAva.querySelector('#name-input-ava'); // Поле "Ссылка на картинку"
 export const profileAva = document.querySelector('.profile__avatar');
+export const buttonSubmitPopupAva = popupAva.querySelector('.popup__button'); // Кнопка сабмит
 
 // При открытии формы добавления карточки также необходимо деактивировать кнопку сабмита
 export function inactiveButton(popup) {
@@ -53,40 +56,35 @@ export function inactiveButton(popup) {
   button.classList.add('button_inactive');
   button.setAttribute('disabled', 'disabled');
 }
-//////////// Меняем текст кнопки на: «Сохранение...», пока данные загружаются Форма "Обновить аватар"////////////////////////////
-export function renderLoadingAva(isLoading) {
-  if (isLoading) {
-    formAva.querySelector('.popup__button').value = 'Сохранение...';
-  } else {
-    formAva.querySelector('.popup__button').value = 'Сохранить';
-  }
-}
-
-//////////// Меняем текст кнопки на: «Сохранение...», пока данные загружаются Форма "Обновить аватар"////////////////////////////
-export function renderLoadingNewCard(isLoading) {
-  if (isLoading) {
-    formCards.querySelector('.popup__button').value = 'Создание...';
-  } else {
-    formCards.querySelector('.popup__button').value = 'Создать';
-  }
-}
-
-// Функция удаления карточки
-export function deleteCard(id) {
-  let arrId = elementsList.querySelectorAll('.elements__element');
-  arrId.forEach(function (element) {
-    if (element.id === id) {
-      element.remove();
-    }
-  });
-}
-
-///////// Загрузка информации о пользователе с сервера //////////////
 export let profileId = { data: '' };
 
-export function renderUserinfo(result) {
-  profileName.textContent = result.name;
-  profileHobby.textContent = result.about;
-  profileAva.src = result.avatar;
-  profileId.data = result._id;
+///////// Проверка ответа с сервера на ошибки /////////
+export function getResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Что-то пошло не так: ${res.status}`);
+}
+
+//////////// Loading ////////////////////
+export function showLoading(isLoading) {
+  if (isLoading) {
+    console.log('Loading....');
+  } else {
+    console.log('Done');
+  }
+}
+
+//Функция для вывода ошибки на экран
+export function showError(err) {
+  console.log(err);
+}
+
+// Меняем текст на кнопке 'Сохранить'
+export function renderLoadingButton(isLoading, currentButton) {
+  if (isLoading) {
+    currentButton.value = 'Сохранение...';
+  } else {
+    currentButton.value = 'Сохранить';
+  }
 }
